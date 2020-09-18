@@ -1,0 +1,43 @@
+.Post {
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    background-color: white;
+    margin: 7px;
+    display: grid;
+    grid-template-areas:
+      "img message"
+      "img like";
+    grid-template-rows: 2fr 1fr ;
+    grid-template-columns: 60px 1fr ;
+    grid-gap: 5px;
+    padding: 5px;
+}
+
+.Post img {
+    margin: 10px;
+    margin-top: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    float: left;
+    grid-area: img;
+}
+
+.Like {
+    grid-area: like;
+    margin-left: 10px;
+}
+
+
+.Message {
+    grid-area: message;
+    -webkit-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.55);
+    -moz-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.55);
+    box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.55);
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    margin: 10px;
+    padding: 10px;
+}

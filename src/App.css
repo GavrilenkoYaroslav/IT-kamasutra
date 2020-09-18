@@ -1,0 +1,18 @@
+.Wrapper {
+    width: 1200px;
+    margin: 0 auto;
+display: grid;
+
+    grid-template-areas:
+            "Header Header"
+            'NavBar Container';
+    grid-template-rows: 100px 1fr;
+    grid-template-columns: 2fr 10fr;
+    grid-gap: 5px;
+background-color: white;
+}
+
+.Container {
+    grid-area: Container;
+    background-color: white;
+}

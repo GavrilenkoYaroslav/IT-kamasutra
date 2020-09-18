@@ -1,0 +1,25 @@
+.NavBar {
+    grid-area: NavBar;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    background-color: gainsboro;
+    padding: 30px;
+    height: 850px;
+}
+
+.Item a.active {
+    color: indianred;
+    font-weight: bold;
+    transition-property: color;
+    transition-duration: 3s;
+}
+
+.Item a {
+    color: white;
+    text-decoration: none;
+}
+
+.Item {
+    margin-top: 20px;
+}
