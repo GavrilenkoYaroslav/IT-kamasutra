@@ -20,7 +20,7 @@ const profileReducer = (state = initialState, action) => {
                 likesCount: 0
             };
 
-            return {...state, newPostText : '', postData : [...state.postData, newPost]};
+            return {...state, newPostText : '', postData : [newPost ,...state.postData]};
 
 
         }
