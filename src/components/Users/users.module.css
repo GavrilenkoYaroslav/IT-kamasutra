@@ -1,0 +1,6 @@
+.active {
+    color: indianred;
+    font-weight: bold;
+    transition-property: color;
+    transition-duration: 3s;
+}

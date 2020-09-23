@@ -1,13 +1,29 @@
 import React from 'react';
 import styles from './Profile-Info.module.css';
+import Preloader from "../../common/Preloader/Preloader";
 
 const ProfileInfo = (props) => {
+
+    if (!props.profile){
+        return <Preloader/>
+    }
+    let contactInfo = [];
+
+    for( let key in props.profile.contacts){
+        contactInfo.push(`${key} : ${props.profile.contacts[key]}  `)
+    }
+
     return(
         <div className={styles.user}>
             <div className={styles.Avatar}>
-                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQqc0qwLkD2-SHZlWMr7z7lRvzHQfxaXk_TLw&usqp=CAU'/>
+                <img src={props.profile.photos.large}/>
             </div>
-            <div className={styles.description}> description</div>
+            <div className={styles.description}>
+                <div>
+                About me: {props.profile.aboutMe}
+                </div>
+                {contactInfo}
+            </div>
         </div>
     );
 };

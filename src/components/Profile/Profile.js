@@ -4,11 +4,11 @@ import ProfileInfo from "./Profile-info/Profile-info";
 import Wallpaper from "../Wallpaper/Wallpaper";
 import PostsContainer from "./Posts/PostsContainer";
 
-const Profile = () => {
+const Profile = (props) => {
     return (
         <div className={styles.Profile}>
             <Wallpaper/>
-            <ProfileInfo/>
+            <ProfileInfo profile={props.profile}/>
             <PostsContainer/>
 
         </div>

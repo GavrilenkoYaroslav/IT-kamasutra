@@ -1,28 +1,31 @@
 import React from 'react';
-import Wallpaper from "../Wallpaper/Wallpaper";
 import User from "./User/User";
-import * as axios from 'axios'
+import styles from './users.module.css';
 
 const Users = (props) => {
 
-    if ( props.users.length === 0 ) {
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    let pages = [];
 
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            props.setUsers(response.data.items);
-        });
+    for (let i = 1; i <= pagesCount; i++){
+        pages.push(i);
     }
 
-     let Users = props.users.map( user => (<User id={user.id} logoSrc={user.photos.small} name={user.name} followed={user.followed} follow={props.follow} unfollow={props.unfollow}/>));
+    let Users = props.users.map(user => (
+        <User id={user.id} logoSrc={user.photos.small} name={user.name} followed={user.followed} follow={props.follow}
+              unfollow={props.unfollow}/>));
 
     return (
         <div>
-            <Wallpaper/>
             <div>
                 {Users}
             </div>
+            <div>
+                {pages.map( p => { return <span className={props.currentPage === p && styles.active} onClick={ () => props.onPageChange(p)}>{p}</span> })}
+            </div>
         </div>
     );
-
 };
+
 
 export default Users;
