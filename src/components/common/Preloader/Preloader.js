@@ -3,7 +3,7 @@ import React from "react";
 
 const Preloader = (props) => {
     return (
-        <div><img src={preloader}/></div>
+        <div><img src={preloader} className={props.className ? props.className : ''}/></div>
     );
 };
 

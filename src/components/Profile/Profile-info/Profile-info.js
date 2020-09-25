@@ -20,6 +20,9 @@ const ProfileInfo = (props) => {
             </div>
             <div className={styles.description}>
                 <div>
+                    <div>
+                    <b>{props.profile.fullName}</b>
+                    </div>
                 About me: {props.profile.aboutMe}
                 </div>
                 {contactInfo}

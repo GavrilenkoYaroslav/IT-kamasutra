@@ -6,3 +6,25 @@
 .Header img {
     width: 150px;
 }
+
+.auth {
+    float: right;
+    margin: 20px;
+}
+
+.preloader {
+    width: 50px;
+    height: 50px;
+}
+
+.avatar img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+.loginBlock {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+}

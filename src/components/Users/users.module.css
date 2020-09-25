@@ -4,3 +4,8 @@
     transition-property: color;
     transition-duration: 3s;
 }
+
+.pages {
+    width: 1000px;
+    overflow: auto;
+}
