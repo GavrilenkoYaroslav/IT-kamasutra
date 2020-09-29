@@ -1,3 +1,5 @@
+import {AuthAPI, UsersAPI} from "../../API/API";
+
 const POST_TEXT_CHANGE = 'POST_TEXT_CHANGE';
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -52,6 +54,22 @@ export const postTextChangeActionCreator = (text) => {
         type: POST_TEXT_CHANGE,
         value: text
     }
+};
+
+export const getUserProfile = (userId) => dispatch => {
+    UsersAPI.getSingleUser(userId)
+        .then(data => {
+            dispatch(setUserProfile(data));
+        });
+};
+
+export const getMyProfile = () => dispatch => {
+    AuthAPI.AuthMe()
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(getUserProfile(data.data.id));
+            }
+        });
 };
 
 export default profileReducer;

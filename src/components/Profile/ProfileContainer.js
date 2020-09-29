@@ -1,33 +1,26 @@
 import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import * as axios from "axios";
-import {setUserProfile} from "../../redux/reducers/profile-reducer";
+import {getMyProfile, getUserProfile} from "../../redux/reducers/profile-reducer";
 import {withRouter} from "react-router-dom";
+
 
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
         if (!this.props.match.params.userId) {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-                withCredentials: true
-            })
-                .then(response => {
-                    if (response.data.resultCode === 0) {
-                        let userId = response.data.data.id;
-                        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-                            .then(response => {
-                                this.props.setUserProfile(response.data);
-                            });
-                    }
-                });
-        }
-
+            // AuthAPI.AuthMe()
+            //     .then(data => {
+            //         if (data.resultCode === 0) {
+            //             let userId = data.data.id;
+            //             this.props.getUserProfile(userId);
+            //         }
+            //     });
+            this.props.getMyProfile();
+        } else {
         let userId = this.props.match.params.userId;
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(response => {
-                this.props.setUserProfile(response.data);
-            });
+        this.props.getUserProfile(userId);
+        }
     }
 
     render() {
@@ -44,7 +37,8 @@ let mapStateToProps = (state) => {
 };
 
 let mapDispatchToProps = {
-    setUserProfile
+    getUserProfile,
+    getMyProfile
 };
 
 let WithUrlProfileContainer = withRouter(ProfileContainer);

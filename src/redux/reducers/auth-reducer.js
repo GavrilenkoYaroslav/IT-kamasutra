@@ -1,5 +1,7 @@
+import {AuthAPI, UsersAPI} from "../../API/API";
+
 const SET_USER_AUTH_DATA = 'SET_USER_AUTH_DATA';
-const TOGGLE_FETCHING = 'TOGGLE_FETCHING';
+const TOGGLE_FETCHING_AUTH = 'TOGGLE_FETCHING_AUTH';
 const SET_LOGO_SRC = 'SET_LOGO_SRC';
 
 // social-network.samuraijs.com
@@ -22,7 +24,7 @@ const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_AUTH_DATA:
             return {...state, ...action.data, auth: true};
-        case TOGGLE_FETCHING:
+        case TOGGLE_FETCHING_AUTH:
             return {...state, isFetching: action.isFetching};
         case SET_LOGO_SRC:
             return {...state, logoSrc : action.logoSrc};
@@ -38,7 +40,7 @@ export const setLogoSrc = (logoSrc) => {
 
 export const toggleFetching = (isFetching) => {
     return {
-        type: TOGGLE_FETCHING,
+        type: TOGGLE_FETCHING_AUTH,
         isFetching
     }
 };
@@ -46,6 +48,23 @@ export const toggleFetching = (isFetching) => {
 
 export const setUserAuthData = (id, login, email) => {
   return { type: SET_USER_AUTH_DATA, data: {id, login, email} }
+};
+
+export const authMe = () => dispatch => {
+    dispatch(toggleFetching(true));
+    AuthAPI.AuthMe()
+        .then(data => {
+            dispatch(toggleFetching(false));
+            if (data.resultCode === 0) {
+                let {id, login, email} = data.data;
+                dispatch(setUserAuthData(id, login, email));
+
+                UsersAPI.getSingleUser(id)
+                    .then(data => {
+                        dispatch(setLogoSrc(data.photos.small));
+                    });
+            }
+        });
 };
 
 
