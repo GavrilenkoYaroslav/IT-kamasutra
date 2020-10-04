@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from './Settings.module.css';
+import * as React from 'react';
 import Wallpaper from "../Wallpaper/Wallpaper";
+
 
 const Settings = () => {
     return (
