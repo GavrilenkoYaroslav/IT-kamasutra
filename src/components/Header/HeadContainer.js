@@ -1,14 +1,17 @@
 import React from 'react';
 import Header from "./Head";
 import {connect} from "react-redux";
-import {authMe} from "../../redux/reducers/auth-reducer";
+import {authMe, logout} from "../../redux/reducers/auth-reducer";
+import {setUserProfile} from "../../redux/reducers/profile-reducer";
 
 
 
 class HeaderContainer extends React.Component {
 
-    componentDidMount() {
-        this.props.authMe();
+    // componentDidMount() {
+    //     this.props.authMe();
+
+
         // this.props.toggleFetching(true);
         // AuthAPI.AuthMe()
         //     .then(data => {
@@ -24,7 +27,7 @@ class HeaderContainer extends React.Component {
         //         }
         //     });
 
-    }
+    // }
 
     render() {
         return (
@@ -40,7 +43,8 @@ let mapStateToProps = (state) => {
 };
 
 let mapDispatchToProps = {
-    authMe
+    logout,
+    setUserProfile
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);

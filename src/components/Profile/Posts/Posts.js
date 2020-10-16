@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Posts.module.css';
 import Post from './Post/Post'
-import AddPostForm from "./AddPost/AddPost";
+import AddPostForm from "./AddPost/AddPostForm";
 
 const Posts = (props) => {
 

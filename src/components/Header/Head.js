@@ -2,14 +2,14 @@ import React from 'react';
 import styles from './Head.module.css';
 import Preloader from "../common/Preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import avatar from '../../Images/scalable-vector-graphics-avatar-learning-icon-customer-login-avatar.jpg'
-import {AuthAPI} from "../../API/API";
+import avatar from '../../Images/scalable-vector-graphics-avatar-learning-icon-customer-login-avatar.jpg';
+
 
 const Header = (props) => {
 
     const logoutClick = async () => {
-       const res =  await AuthAPI.AuthLogout;
-       console.log(res);
+       await props.logout();
+       props.setUserProfile(null);
     };
 
     return (
@@ -22,7 +22,7 @@ const Header = (props) => {
                             <img src={props.auth.logoSrc ? props.auth.logoSrc : avatar}/>
                         </div>
                         <div>
-                            <button onClick={ logoutClick }>Logout</button>
+                            <button onClick={ logoutClick }>Log out</button>
                         </div>
                         <b>
                             {props.auth.login}

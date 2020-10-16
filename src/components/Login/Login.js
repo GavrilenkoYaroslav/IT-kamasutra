@@ -1,43 +1,54 @@
 import React from 'react';
 import {Field, reduxForm} from "redux-form";
-import {AuthAPI} from "../../API/API";
 import {connect} from "react-redux";
-import {authMe} from "../../redux/reducers/auth-reducer";
+import {Input} from "../common/customElements/Inputs";
+import {required} from "../../utils/validators";
+import {login} from "../../redux/reducers/auth-reducer";
+import {Redirect} from "react-router-dom";
+import styles from './Login.module.css'
 
 const Login = (props) => {
 
-    const onSubmit = async (formData) =>{
-      await AuthAPI.AuthLogin(formData);
-      await props.authMe();
+    const onSubmit = (formData) => {
+       props.login(formData);
     };
+
+    if (props.auth) {
+        return <Redirect to='/profile'/>
+    }
 
     return <>
         <h1>Login</h1>
-        <LoginReduxForm onSubmit={ onSubmit }/>
+        <LoginReduxForm onSubmit={onSubmit}/>
     </>
 };
 
-const mapStatetoProps = (state) => {
+const mapStateToProps = (state) => {
     return {
-
+        auth: state.auth.auth
     }
 };
 
-export default connect(mapStatetoProps, {authMe})(Login);
+export default connect(mapStateToProps, {login})(Login);
 
 
 const LoginForm = (props) => {
+    debugger
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field name={'email'} component={'input'} placeholder={'Login'}/>
+                <Field name={'email'} component={Input} validate={[required]} placeholder={'Email'}/>
             </div>
             <div>
-                <Field name={'password'} component={'input'} placeholder={'Password'}/>
+                <Field name={'password'} type={'password'} component={Input} validate={[required]}
+                       placeholder={'Password'}/>
             </div>
             <div>
-                <Field name={'rememberMe'} component={'input'} type={'checkbox'}/> remember me
+                <Field name={'rememberMe'} component={Input} type={'checkbox'}/> remember me
             </div>
+            {props.error && <div className={styles.loginFormError}>
+                {props.error}
+            </div>}
             <div>
                 <button>Login</button>
             </div>

@@ -3,6 +3,7 @@ import styles from './Dialogs.module.css';
 import Wallpaper from "../Wallpaper/Wallpaper";
 import DialogListContainer from "./DialogsList/DialogListContainer";
 import MessagesContainer from "./Messages/MessagesContainer";
+import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 
 const Dialogs = () => {
     return (
@@ -16,4 +17,4 @@ const Dialogs = () => {
     );
 };
 
-export default Dialogs;
+export default withAuthRedirect(Dialogs);
