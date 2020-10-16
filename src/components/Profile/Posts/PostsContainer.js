@@ -1,9 +1,7 @@
 import React from 'react';
-import styles from './Posts.module.css';
-import Post from './Post/Post'
-import AddPostContainer from "./AddPost/AddPostContainer";
 import {connect} from "react-redux";
 import Posts from "./Posts";
+import {addPostActionCreator} from "../../../redux/reducers/profile-reducer";
 
 const mapStateToProps = (state) => {
     return {
@@ -11,12 +9,10 @@ const mapStateToProps = (state) => {
     }
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//
-//     }
-// };
+const mapDispatchToProps = {
+    addPostActionCreator
+};
 
-const PostsContainer = connect(mapStateToProps)(Posts);
+const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts);
 
 export default PostsContainer;

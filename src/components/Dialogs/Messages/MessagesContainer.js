@@ -1,6 +1,7 @@
 import React from 'react';
 import Messages from "./Messages";
 import {connect} from "react-redux";
+import {sendMessageActionCreator} from "../../../redux/reducers/dialogs-reducer";
 
 const mapStateToProps = (state) => {
   return {
@@ -8,10 +9,8 @@ const mapStateToProps = (state) => {
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-
-  }
+const mapDispatchToProps = {
+  sendMessageActionCreator
 };
 
 const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages);

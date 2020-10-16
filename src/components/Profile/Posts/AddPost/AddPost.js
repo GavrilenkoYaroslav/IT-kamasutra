@@ -1,26 +1,16 @@
 import React from 'react';
 import styles from './AddPost.module.css';
-import {addPostActionCreator, postTextChangeActionCreator} from "../../../../redux/reducers/profile-reducer";
+import {Field, reduxForm} from "redux-form";
 
 
-const AddPost = (props) => {
-
-    let postTextChange = (e) => {
-        let text = e.target.value;
-        props.postTextChange(text);
-        // props.dispatch(postTextChangeActionCreator(text));
-    };
-
-    let addPost = () => {
-        props.addPost();
-    };
+const AddPostForm = (props) => {
 
     return (
-        <div className={styles.form}>
-            <textarea onChange={postTextChange} value={props.newPostText}/>
-            <button onClick={addPost}>Add post</button>
-        </div>
+        <form onSubmit={props.handleSubmit} className={styles.form}>
+            <Field component={'textarea'} name={'postMessage'}/>
+            <button>Add post</button>
+        </form>
     );
 };
 
-export default AddPost;
+export default reduxForm({form : 'addPostForm'})(AddPostForm);

@@ -1,25 +1,16 @@
 import React from 'react';
 import styles from './SendMessage.module.css';
-import {messageTextChangeActionCreator, sendMessageActionCreator} from "../../../../redux/reducers/dialogs-reducer";
+import {Field, reduxForm} from "redux-form";
 
 
-const SendMessage = (props) => {
-
-    let messageTextChange = (e)=> {
-      let text = e.target.value;
-      props.messageTextChange(text);
-    };
-
-    let sendMessage = () =>{
-        props.sendMessage();
-    };
+const SendMessageForm = (props) => {
 
     return (
-        <div className={styles.sendMessage}>
-            <textarea placeholder={'enter your message'} onChange={ messageTextChange } value={props.newMessageText}/>
-            <button onClick={ sendMessage }>Send message</button>
-        </div>
+        <form className={styles.sendMessage} onSubmit={props.handleSubmit}>
+            <Field name={'message'} component={'textarea'} placeholder={'enter your message'}/>
+            <button>Send message</button>
+        </form>
     );
 };
 
-export default SendMessage;
+export default reduxForm({form : 'sendMessageForm'})(SendMessageForm);

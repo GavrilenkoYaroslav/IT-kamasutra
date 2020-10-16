@@ -8,7 +8,7 @@ import {authMe} from "../../redux/reducers/auth-reducer";
 class HeaderContainer extends React.Component {
 
     componentDidMount() {
-        this.props.authMe()
+        this.props.authMe();
         // this.props.toggleFetching(true);
         // AuthAPI.AuthMe()
         //     .then(data => {

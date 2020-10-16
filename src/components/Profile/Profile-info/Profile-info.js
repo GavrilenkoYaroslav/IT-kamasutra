@@ -1,22 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './Profile-Info.module.css';
-import Preloader from "../../common/Preloader/Preloader";
+// import Preloader from "../../common/Preloader/Preloader";
+import Status from "./Status";
+import userLogo from '../../../Images/scalable-vector-graphics-avatar-learning-icon-customer-login-avatar.jpg'
 
 const ProfileInfo = (props) => {
 
     if (!props.profile){
-        return <Preloader/>
+        return <div>Please Log in</div>
     }
+
     let contactInfo = [];
 
     for( let key in props.profile.contacts){
         contactInfo.push(`${key} : ${props.profile.contacts[key]}  `)
     }
 
+
     return(
         <div className={styles.user}>
             <div className={styles.Avatar}>
-                <img src={props.profile.photos.large}/>
+                <img src={props.profile.photos.large || userLogo}/>
             </div>
             <div className={styles.description}>
                 <div>
@@ -27,6 +31,9 @@ const ProfileInfo = (props) => {
                 </div>
                 {contactInfo}
             </div>
+
+            <Status status={props.status}/>
+
         </div>
     );
 };

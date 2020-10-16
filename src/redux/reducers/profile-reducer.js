@@ -1,16 +1,19 @@
-import {AuthAPI, UsersAPI} from "../../API/API";
+import {AuthAPI, ProfileAPI} from "../../API/API";
 
-const POST_TEXT_CHANGE = 'POST_TEXT_CHANGE';
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_STATUS = 'SET_STATUS';
+const TOGGLE_FETCHING = 'TOGGLE_FETCHING';
 
-let initialState = {
+
+const initialState = {
     postData: [
         {id: 1, post: 'Hi, how are you?', likesCount: '9'},
         {id: 2, post: 'Working hard.', likesCount: '15'}
     ],
-    newPostText: '',
-    profile: null
+    profile: null,
+    status: '',
+    isFetching: false,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -20,20 +23,22 @@ const profileReducer = (state = initialState, action) => {
             let postId = state.postData.length + 1;
             let newPost = {
                 id: postId,
-                post: state.newPostText,
+                post: action.post,
                 likesCount: 0
             };
 
-            return {...state, newPostText : '', postData : [newPost ,...state.postData]};
+            return {...state, postData: [newPost, ...state.postData]};
 
 
         }
-        case POST_TEXT_CHANGE: {
-            return {...state, newPostText : action.value};
-
+        case TOGGLE_FETCHING: {
+            return {...state, isFetching: action.isFetching};
         }
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
+        }
+        case SET_STATUS: {
+            return {...state, status: action.status}
         }
         default:
             return state;
@@ -41,26 +46,33 @@ const profileReducer = (state = initialState, action) => {
 
 };
 
-export const setUserProfile = (profile) => {
-  return { type: SET_USER_PROFILE, profile }
-};
-
-export const addPostActionCreator = () => {
-    return { type: ADD_POST };
-};
-
-export const postTextChangeActionCreator = (text) => {
+export const toggleFetching = (isFetching) => {
     return {
-        type: POST_TEXT_CHANGE,
-        value: text
+        type: TOGGLE_FETCHING,
+        isFetching
     }
 };
 
-export const getUserProfile = (userId) => dispatch => {
-    UsersAPI.getSingleUser(userId)
-        .then(data => {
+export const setStatusAC = (status) => {
+    return {type: SET_STATUS, status}
+};
+
+export const setUserProfile = (profile) => {
+    return {type: SET_USER_PROFILE, profile}
+};
+
+export const addPostActionCreator = (post) => {
+    return {type: ADD_POST, post};
+};
+
+
+export const getUserProfile = (userId) => async dispatch => {
+    dispatch(toggleFetching(true));
+    await ProfileAPI.getProfile(userId)
+        .then(async data => {
             dispatch(setUserProfile(data));
-        });
+            await dispatch(getUserStatus(userId));
+        }).finally(() => dispatch(toggleFetching(false)) );
 };
 
 export const getMyProfile = () => dispatch => {
@@ -70,6 +82,15 @@ export const getMyProfile = () => dispatch => {
                 dispatch(getUserProfile(data.data.id));
             }
         });
+
 };
+
+export const getUserStatus = (userId) =>async dispatch => {
+    await ProfileAPI.getStatus(userId)
+        .then(data => {
+            dispatch(setStatusAC(data.data));
+        });
+};
+
 
 export default profileReducer;

@@ -1,14 +1,19 @@
 import React from 'react';
 import styles from './Posts.module.css';
 import Post from './Post/Post'
-import AddPostContainer from "./AddPost/AddPostContainer";
+import AddPostForm from "./AddPost/AddPost";
 
 const Posts = (props) => {
+
+    const onSubmit = (post) => {
+      props.addPostActionCreator(post.postMessage)
+    };
+
     let postElements = props.postData.map( post => <Post message={post.post} likesCount={post.likesCount}/>);
 
     return(
         <div className={styles.Posts}>
-            <AddPostContainer />
+            <AddPostForm onSubmit={ onSubmit } />
             <div>
                 <div className={styles.title}><b>My posts</b></div>
                 {postElements}

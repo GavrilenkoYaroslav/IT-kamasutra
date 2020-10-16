@@ -1,5 +1,4 @@
 const SEND_MESSAGE = 'SEND_MESSAGE';
-const MESSAGE_TEXT_CHANGE = 'MESSAGE_TEXT_CHANGE';
 
 let initialState = {
     MessagesData: [
@@ -25,8 +24,7 @@ let initialState = {
         },
         {id: '4', name: 'Viktor', logoSrc: 'https://archilab.online/images/1/123.jpg'},
         {id: '5', name: 'Andrew', logoSrc: 'https://cs16planet.ru/steam-avatars/images/avatar2700.jpg'}
-    ],
-    newMessageText: ''
+    ]
 };
 
 const dialogsReducer = (state = initialState, action) => {
@@ -36,30 +34,21 @@ const dialogsReducer = (state = initialState, action) => {
             let messageId = state.MessagesData.length + 1;
             let newMessage = {
                 id: messageId,
-                message: state.newMessageText
+                message: action.message
             };
 
-            return {...state, newMessageText : '', MessagesData : [...state.MessagesData, newMessage]};
+            return {...state, MessagesData : [...state.MessagesData, newMessage]};
 
         }
-        case MESSAGE_TEXT_CHANGE: {
-            return {...state, newMessageText : action.value};
-        }
+
         default:
             return state;
     }
 
 };
 
-export const sendMessageActionCreator = () => {
-    return {type: SEND_MESSAGE};
-};
-
-export const messageTextChangeActionCreator = (text) => {
-    return {
-        type: MESSAGE_TEXT_CHANGE,
-        value: text
-    };
+export const sendMessageActionCreator = (message) => {
+    return {type: SEND_MESSAGE, message};
 };
 
 export default dialogsReducer;

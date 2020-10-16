@@ -1,16 +1,20 @@
 import React from 'react';
 import styles from './Messages.module.css';
 import Message from "./Message/Message";
-import SendMessageContainer from "./SendMessage/SendMessageContainer";
+import SendMessageForm from './SendMessage/SendMessage'
 
 const Messages = (props) => {
+
+    const onSubmit = (formData) => {
+      props.sendMessageActionCreator(formData.message);
+    };
 
     let MessagesElements = props.MessagesData.map( message => <Message message={message.message} id={message.id}/>);
 
     return(
         <div className={styles.messages}>
             {MessagesElements}
-            <SendMessageContainer/>
+            <SendMessageForm onSubmit={ onSubmit }/>
         </div>
     );
 };

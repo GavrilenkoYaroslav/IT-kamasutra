@@ -1,4 +1,4 @@
-import {AuthAPI, UsersAPI} from "../../API/API";
+import {AuthAPI, ProfileAPI, UsersAPI} from "../../API/API";
 
 const SET_USER_AUTH_DATA = 'SET_USER_AUTH_DATA';
 const TOGGLE_FETCHING_AUTH = 'TOGGLE_FETCHING_AUTH';
@@ -59,7 +59,7 @@ export const authMe = () => dispatch => {
                 let {id, login, email} = data.data;
                 dispatch(setUserAuthData(id, login, email));
 
-                UsersAPI.getSingleUser(id)
+                ProfileAPI.getProfile(id)
                     .then(data => {
                         dispatch(setLogoSrc(data.photos.small));
                     });
