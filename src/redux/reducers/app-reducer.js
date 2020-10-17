@@ -1,6 +1,4 @@
-import {authMe} from "./auth-reducer";
-
-const SET_INITIALIZED = 'SET_INITIALIZED';
+import { authMe, SET_USER_AUTH_DATA } from './auth-reducer';
 
 
 let initialState = {
@@ -11,7 +9,7 @@ let initialState = {
 const appReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case SET_INITIALIZED:
+        case SET_USER_AUTH_DATA:
             return {...state, initialized: true};
         default:
             return state;
@@ -19,13 +17,8 @@ const appReducer = (state = initialState, action) => {
 };
 
 
-export const setInitialized = () => {
-  return { type: SET_INITIALIZED }
-};
-
-export const initializeApp = () => async dispatch => {
-   await dispatch(authMe());
-   dispatch(setInitialized())
+export const initializeApp = () =>  dispatch => {
+    dispatch(authMe());
 };
 
 

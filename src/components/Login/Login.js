@@ -25,7 +25,7 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth.auth
+        auth: state.auth.id
     }
 };
 

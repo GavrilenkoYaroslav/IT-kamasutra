@@ -16,7 +16,7 @@ const Header = (props) => {
         <header className={styles.Header}>
             <img src='https://assets.awwwards.com/awards/images/2011/12/typeandlogo-11.jpg'/>
             <div className={styles.auth}>
-                {props.auth.isFetching ? <Preloader className={styles.preloader}/> : props.auth.auth ?
+                {props.auth.isFetching ? <Preloader className={styles.preloader}/> : props.auth.id ?
                     <div className={styles.loginBlock}>
                         <div className={styles.avatar}>
                             <img src={props.auth.logoSrc ? props.auth.logoSrc : avatar}/>

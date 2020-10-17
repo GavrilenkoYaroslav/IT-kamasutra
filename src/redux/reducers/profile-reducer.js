@@ -69,9 +69,9 @@ export const addPostActionCreator = (post) => {
 export const getUserProfile = (userId) => async dispatch => {
     dispatch(toggleFetching(true));
     await ProfileAPI.getProfile(userId)
-        .then(async data => {
+        .then(data => {
             dispatch(setUserProfile(data));
-            await dispatch(getUserStatus(userId));
+            dispatch(getUserStatus(userId));
         }).finally(() => dispatch(toggleFetching(false)) );
 };
 
