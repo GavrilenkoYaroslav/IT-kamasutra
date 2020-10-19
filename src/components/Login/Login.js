@@ -13,7 +13,7 @@ const Login = (props) => {
        props.login(formData);
     };
 
-    if (props.auth) {
+    if (props.id) {
         return <Redirect to='/profile'/>
     }
 
@@ -25,7 +25,7 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth.id
+        id: state.auth.id
     }
 };
 
@@ -33,7 +33,6 @@ export default connect(mapStateToProps, {login})(Login);
 
 
 const LoginForm = (props) => {
-    debugger
     return (
         <form onSubmit={props.handleSubmit}>
             <div>

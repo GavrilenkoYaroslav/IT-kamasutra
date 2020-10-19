@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from "./Head";
 import {connect} from "react-redux";
-import {authMe, logout} from "../../redux/reducers/auth-reducer";
+import {logout} from "../../redux/reducers/auth-reducer";
 import {setUserProfile} from "../../redux/reducers/profile-reducer";
 
 
