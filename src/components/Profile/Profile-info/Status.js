@@ -1,10 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ProfileAPI} from "../../../API/API";
 
 const Status = (props) => {
 
     const [status, setStatus] = useState(props.status);
     const [editMode, setEditMode] = useState(false);
+
+    useEffect(()=>{
+        setStatus(props.status);
+    }, [props.status]);
 
     const enterToEditMode = () => {
         setEditMode(true);
