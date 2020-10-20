@@ -29,8 +29,7 @@ class App extends React.Component {
                     <HeaderContainer/>
                     <NavBar/>
                     <div className={'Container'}>
-                        <Route path='/profile/:userId' render={() => <ProfileContainer/>}/>
-                        <Route exact path='/profile/' render={() => <ProfileContainer/>}/>
+                        <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                         <Route path='/dialogs' render={() => <Dialogs/>}/>
                         <Route path='/music' render={() => <Music/>}/>
                         <Route path='/news' render={() => <News/>}/>
@@ -40,7 +39,6 @@ class App extends React.Component {
                     </div>
                 </div>
             </BrowserRouter>
-
         );
     };
 }

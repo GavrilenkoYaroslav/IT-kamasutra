@@ -1,43 +1,45 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getMyProfile, getUserProfile, getUserStatus} from "../../redux/reducers/profile-reducer";
+import {clearProfile, getMyProfile, getUserProfile, getUserStatus} from "../../redux/reducers/profile-reducer";
 import {withRouter} from "react-router-dom";
-// import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import {compose} from "redux";
 
 
-class ProfileContainer extends React.Component {
+const ProfileContainer = (props) => {
 
-    async componentDidMount () {
-        if (!this.props.match.params.userId) {
-            await this.props.getMyProfile();
+    useEffect(() => {
+        if (!props.match.params.userId) {
+            !props.id && props.clearProfile();
+            props.getMyProfile();
         } else {
-        let userId = this.props.match.params.userId;
-        await this.props.getUserProfile(userId);
+            let userId = props.match.params.userId;
+            props.getUserProfile(userId);
         }
-    }
+    }, [props.match.params.userId]);
 
-    render() {
-        return (
-            <Profile profile={this.props.profile} status={this.props.status} isFetching={this.props.isFetching}/>
-        );
-    };
-}
+
+    return (
+        <Profile profile={props.profile} status={props.status} isFetching={props.isFetching}/>
+    );
+
+};
 
 
 let mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
-        isFetching: state.profilePage.isFetching
+        isFetching: state.profilePage.isFetching,
+        id: state.auth.id
     }
 };
 
 let mapDispatchToProps = {
     getUserProfile,
     getMyProfile,
-    getUserStatus
+    getUserStatus,
+    clearProfile
 };
 
 export default compose(

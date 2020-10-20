@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import Users from "./Users";
 import {
@@ -10,52 +10,32 @@ import Wallpaper from "../Wallpaper/Wallpaper";
 import Preloader from "../common/Preloader/Preloader";
 
 
+const UsersContainer = (props) => {
 
+    useEffect(() => {
+        props.getUsers(props.currentPage, props.pageSize);
+    }, [props.currentPage]);
 
-class UsersContainer extends React.Component {
-
-    componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
-        // this.props.toggleFetching(true);
-        // UsersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-        //         this.props.toggleFetching(false);
-        //         this.props.setUsers(data.items);
-        //         this.props.setTotalUsersCount(data.totalCount);
-        //     });
-    }
-
-    onPageChange = (p) => {
-        // this.props.toggleFetching(true);
-        // this.props.changePage(p);
-        // UsersAPI.getUsers(p, this.props.pageSize)
-        //     .then( data => {
-        //         this.props.toggleFetching(false);
-        //         this.props.setUsers(data.items);
-        //     });
-        this.props.pageChange(p, this.props.pageSize);
+    const onPageChange = (p) => {
+        props.pageChange(p, props.pageSize);
     };
 
-    render() {
-
-        return (
-            <>
-                <Wallpaper/>
-            {this.props.isFetching ? <Preloader/> :
-            <Users totalUsersCount={this.props.totalUsersCount}
-                   pageSize={this.props.pageSize}
-                   users={this.props.users}
-                   follow={this.props.follow}
-                   unfollow={this.props.unfollow}
-                   currentPage={this.props.currentPage}
-                   onPageChange={this.onPageChange}
-                   followingInProgress={this.props.followingInProgress}
-            />}
-                   </>
-        )
-    }
-
-}
-
+    return (
+        <>
+            <Wallpaper/>
+            {props.isFetching ? <Preloader/> :
+                <Users totalUsersCount={props.totalUsersCount}
+                       pageSize={props.pageSize}
+                       users={props.users}
+                       follow={props.follow}
+                       unfollow={props.unfollow}
+                       currentPage={props.currentPage}
+                       onPageChange={onPageChange}
+                       followingInProgress={props.followingInProgress}
+                />}
+        </>
+    );
+};
 
 const mapStateToProps = (state) => {
     return {
@@ -64,17 +44,17 @@ const mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress : state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress
     }
 
 };
 
 const mapDispatchToProps = {
-        follow,
-        unfollow,
-        setTotalUsersCount,
-        toggleFetching,
-        getUsers, pageChange
+    follow,
+    unfollow,
+    setTotalUsersCount,
+    toggleFetching,
+    getUsers, pageChange
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

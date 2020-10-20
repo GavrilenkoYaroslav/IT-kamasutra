@@ -28,7 +28,7 @@ const Status = (props) => {
         <>
             {editMode ?
                 <input autoFocus={ true } onBlur={ closeEditMode } onChange={ statusChange } value={ status }/> :
-                <span onDoubleClick={ enterToEditMode }> {status ? status : 'Here can be your status'} </span>}
+                <span onDoubleClick={ enterToEditMode }> {status ? status : 'Here can be your status (double click)'} </span>}
         </>
     );
 };

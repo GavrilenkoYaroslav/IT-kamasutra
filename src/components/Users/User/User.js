@@ -8,7 +8,7 @@ const User = (props) => {
         <div>
             <div className={styles.logo}>
                 <NavLink to={`/profile/${props.id}`}>
-                    <img src={props.logoSrc != null ? props.logoSrc : userLogo}/>
+                    <img src={props.logoSrc || userLogo}/>
                 </NavLink>
             </div>
             <div>

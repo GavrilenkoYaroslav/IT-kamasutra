@@ -7,8 +7,8 @@ import avatar from '../../Images/scalable-vector-graphics-avatar-learning-icon-c
 
 const Header = (props) => {
 
-    const logoutClick = async () => {
-       await props.logout();
+    const logoutClick = () => {
+       props.logout();
        props.setUserProfile(null);
     };
 

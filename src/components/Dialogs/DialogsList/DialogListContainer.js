@@ -7,12 +7,6 @@ const mapStateToProps = (state) => {
        DialogsData : state.dialogsPage.DialogsData
    }
 };
-//
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//
-//   }
-// };
 
 const DialogListContainer = connect(mapStateToProps)(DialogList);
 

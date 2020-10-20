@@ -56,7 +56,7 @@ export const AuthAPI = {
     },
 
     AuthLogout(){
-        return instance.delete('auth/login').then(res => console.log(res))
+        return instance.delete('auth/login')
     },
 
 };

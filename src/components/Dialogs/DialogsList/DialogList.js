@@ -4,7 +4,6 @@ import DialogItem from "./DialogItem/DialogItem";
 
 const DialogList = (props) => {
 
-
     let DialogsElements = props.DialogsData.map( dialog => <DialogItem Id={dialog.id} name={dialog.name} logoSrc={dialog.logoSrc}/>)
 
     return (

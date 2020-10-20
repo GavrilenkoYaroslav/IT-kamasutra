@@ -44,9 +44,8 @@ export const toggleFetching = (isFetching) => {
 	};
 };
 
-
-export const setUserAuthData = (id, login, email, auth) => {
-	return { type: SET_USER_AUTH_DATA, data: { id, login, email, auth } };
+export const setUserAuthData = (id, login, email) => {
+	return { type: SET_USER_AUTH_DATA, data: { id, login, email} };
 };
 
 export const authMe = () => async dispatch => {
@@ -68,16 +67,13 @@ export const authMe = () => async dispatch => {
 
 export const login = (data) => async dispatch => {
 	const res = await AuthAPI.AuthLogin(data);
-
 	if ( res.data.resultCode === 0 ) {
 		return dispatch(authMe());
 	}
-
 	// _.isEmpty(res.data.messages)
 	// _.size(res.data.messages)
 	const message = res.data.messages.length > 0 ? res.data.messages[0] : 'some error';
 	dispatch(stopSubmit('login', { _error: message }));
-
 };
 
 export const logout = () => async dispatch => {

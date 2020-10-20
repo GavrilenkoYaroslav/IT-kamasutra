@@ -6,35 +6,11 @@ import {setUserProfile} from "../../redux/reducers/profile-reducer";
 
 
 
-class HeaderContainer extends React.Component {
-
-    // componentDidMount() {
-    //     this.props.authMe();
-
-
-        // this.props.toggleFetching(true);
-        // AuthAPI.AuthMe()
-        //     .then(data => {
-        //         this.props.toggleFetching(false);
-        //         if (data.resultCode === 0) {
-        //             let {id, login, email} = data.data;
-        //             this.props.setUserAuthData(id, login, email);
-        //
-        //             UsersAPI.getSingleUser(id)
-        //                 .then(data => {
-        //                     this.props.setLogoSrc(data.photos.small);
-        //                 });
-        //         }
-        //     });
-
-    // }
-
-    render() {
+const HeaderContainer = (props) => {
         return (
-            <Header {...this.props}/>
+            <Header {...props}/>
         );
     };
-}
 
 let mapStateToProps = (state) => {
     return {

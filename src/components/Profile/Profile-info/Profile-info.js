@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styles from './Profile-Info.module.css';
-// import Preloader from "../../common/Preloader/Preloader";
 import Status from "./Status";
 import userLogo from '../../../Images/scalable-vector-graphics-avatar-learning-icon-customer-login-avatar.jpg'
 
@@ -15,7 +14,6 @@ const ProfileInfo = (props) => {
     for( let key in props.profile.contacts){
         contactInfo.push(`${key} : ${props.profile.contacts[key]}  `)
     }
-
 
     return(
         <div className={styles.user}>
@@ -32,7 +30,9 @@ const ProfileInfo = (props) => {
                 {contactInfo}
             </div>
 
+            <div className={styles.status}>
             <Status status={props.status}/>
+            </div>
 
         </div>
     );

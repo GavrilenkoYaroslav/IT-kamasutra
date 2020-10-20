@@ -12,7 +12,6 @@ const Profile = (props) => {
             {props.isFetching? <Preloader/> :
             <ProfileInfo profile={props.profile} status={props.status}/>}
             <PostsContainer/>
-
         </div>
     );
 };
