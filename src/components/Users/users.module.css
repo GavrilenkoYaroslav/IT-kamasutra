@@ -8,4 +8,23 @@
 .pages {
     width: 1000px;
     overflow: auto;
+    overflow-y: hidden;
+}
+
+.paginator {
+    border-radius: 75px 75px 75px 75px;
+    -moz-border-radius: 75px 75px 75px 75px;
+    -webkit-border-radius: 75px 75px 75px 75px;
+    background-color: whitesmoke;
+    margin: 1px;
+    padding: 1px;
+    cursor: pointer;
+}
+
+.usersContainer {
+    margin: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-gap: 30px;
 }

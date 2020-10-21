@@ -1,13 +1,14 @@
 .Avatar img {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     border-radius: 50px;
 }
 
 .user {
     display: grid;
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: 4fr 14fr;
     margin: 10px;
+    grid-gap: 10px;
 }
 
 .status {
@@ -22,5 +23,4 @@
     -webkit-border-radius: 10px 10px 10px 10px;
     padding: 10px;
     width: 60%;
-    margin-left: -50px;
 }
