@@ -7,6 +7,7 @@ import {login} from "../../redux/reducers/auth-reducer";
 import {Redirect} from "react-router-dom";
 import styles from './Login.module.css'
 
+
 const Login = (props) => {
 
     const onSubmit = (formData) => {
@@ -19,13 +20,14 @@ const Login = (props) => {
 
     return <>
         <h1>Login</h1>
-        <LoginReduxForm onSubmit={onSubmit}/>
+        <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
     </>
 };
 
 const mapStateToProps = (state) => {
     return {
-        id: state.auth.id
+        id: state.auth.id,
+        captchaUrl : state.auth.captchaUrl
     }
 };
 
@@ -47,6 +49,10 @@ const LoginForm = (props) => {
             </div>
             {props.error && <div className={styles.loginFormError}>
                 {props.error}
+            </div>}
+            {props.captchaUrl && <div>
+                <img src={props.captchaUrl}/>
+                <Field name={'captcha'} component={Input} validate={[required]} placeholder={'Captcha'}/>
             </div>}
             <div>
                 <button>Login</button>

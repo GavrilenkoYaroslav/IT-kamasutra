@@ -74,3 +74,10 @@ export const AuthAPI = {
     },
 
 };
+
+export const SequrityAPI = {
+
+    getCaptcha(){
+        return instance.get('security/get-captcha-url')
+    }
+};

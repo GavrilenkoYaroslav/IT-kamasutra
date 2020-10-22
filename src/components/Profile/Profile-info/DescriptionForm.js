@@ -41,7 +41,7 @@ const DescriptionForm = (props) => {
                 <Field name={'contacts.youtube'} component={Input} placeholder={'youtube'}/>
             </div>
             <div>
-                <Field name={'contacts.link'} component={Input} placeholder={'link'}/>
+                <Field name={'contacts.mainLink'} component={Input} placeholder={'link'}/>
             </div>
             <div>
                 <button>save</button>
