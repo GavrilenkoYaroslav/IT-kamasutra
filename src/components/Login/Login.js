@@ -45,7 +45,7 @@ const LoginForm = (props) => {
                        placeholder={'Password'}/>
             </div>
             <div>
-                remember me <Field name={'rememberMe'} component={Input} type={'checkbox'}/>
+                remember me<Field name={'rememberMe'} component={Input} type={'checkbox'}/>
             </div>
             {props.error && <div className={styles.loginFormError}>
                 {props.error}
