@@ -1,7 +1,13 @@
 import React, {useEffect} from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {clearProfile, getMyProfile, getUserProfile, getUserStatus} from "../../redux/reducers/profile-reducer";
+import {
+    clearProfile,
+    getMyProfile,
+    getUserProfile,
+    getUserStatus,
+    savePhoto, saveProfile
+} from "../../redux/reducers/profile-reducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 
@@ -20,7 +26,10 @@ const ProfileContainer = (props) => {
 
 
     return (
-        <Profile profile={props.profile} status={props.status} isFetching={props.isFetching}/>
+        <Profile profile={props.profile} status={props.status}
+                 isFetching={props.isFetching} isMyProfile={!props.match.params.userId}
+                 savePhoto={props.savePhoto}
+                 saveProfile={props.saveProfile}/>
     );
 
 };
@@ -39,7 +48,9 @@ let mapDispatchToProps = {
     getUserProfile,
     getMyProfile,
     getUserStatus,
-    clearProfile
+    clearProfile,
+    savePhoto,
+    saveProfile
 };
 
 export default compose(

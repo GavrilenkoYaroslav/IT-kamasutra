@@ -9,7 +9,7 @@ const Posts = (props) => {
       props.addPostActionCreator(post.postMessage)
     };
 
-    let postElements = props.postData.map( post => <Post message={post.post} likesCount={post.likesCount}/>);
+    let postElements = props.postData.map( post => <Post message={post.post} likesCount={post.likesCount} key={post.id}/>);
 
     return(
         <div className={styles.Posts}>

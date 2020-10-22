@@ -1,5 +1,6 @@
 import { AuthAPI, ProfileAPI } from '../../API/API';
 import { stopSubmit } from 'redux-form';
+import {SET_PHOTO} from "./profile-reducer";
 
 export const SET_USER_AUTH_DATA = 'SET_USER_AUTH_DATA';
 const TOGGLE_FETCHING_AUTH = 'TOGGLE_FETCHING_AUTH';
@@ -27,6 +28,8 @@ const authReducer = (state = initialState, action) => {
 			return { ...state, isFetching: action.isFetching };
 		case SET_LOGO_SRC:
 			return { ...state, logoSrc: action.logoSrc };
+		case SET_PHOTO:
+			return {...state, logoSrc: action.photos.small};
 		default:
 			return state;
 	}

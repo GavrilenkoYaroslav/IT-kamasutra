@@ -9,7 +9,7 @@ const Messages = (props) => {
       props.sendMessageActionCreator(formData.message);
     };
 
-    let MessagesElements = props.MessagesData.map( message => <Message message={message.message} id={message.id}/>);
+    let MessagesElements = props.MessagesData.map( message => <Message message={message.message} id={message.id} key={message.id}/>);
 
     return(
         <div className={styles.messages}>

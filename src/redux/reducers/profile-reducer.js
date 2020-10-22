@@ -1,10 +1,12 @@
 import {AuthAPI, ProfileAPI} from "../../API/API";
+import {stopSubmit} from "redux-form";
 
-const CLEAR_PROFILE = 'CLEAR_PROFILE';
-const ADD_POST = 'ADD_POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_STATUS = 'SET_STATUS';
-const TOGGLE_FETCHING = 'TOGGLE_FETCHING';
+export const SET_PHOTO = 'profile_reducer/SET_PHOTO';
+const CLEAR_PROFILE = 'profile_reducer/CLEAR_PROFILE';
+const ADD_POST = 'profile_reducer/ADD_POST';
+const SET_USER_PROFILE = 'profile_reducer/SET_USER_PROFILE';
+const SET_STATUS = 'profile_reducer/SET_STATUS';
+const TOGGLE_FETCHING = 'profile_reducer/TOGGLE_FETCHING';
 
 
 const initialState = {
@@ -41,6 +43,9 @@ const profileReducer = (state = initialState, action) => {
         case SET_STATUS: {
             return {...state, status: action.status}
         }
+        case SET_PHOTO: {
+            return {...state, profile: {...state.profile, photos: action.photos}}
+        }
         default:
             return state;
     }
@@ -70,6 +75,9 @@ export const clearProfile = () => {
     return {type: CLEAR_PROFILE};
 };
 
+export const setPhoto = (photos) => {
+    return {type: SET_PHOTO, photos}
+};
 
 export const getUserProfile = (userId) => async dispatch => {
     dispatch(toggleFetching(true));
@@ -99,6 +107,27 @@ export const getUserStatus = (userId) => async dispatch => {
     try {
         const data = await ProfileAPI.getStatus(userId);
         dispatch(setStatusAC(data.data));
+    } catch (e) {
+        console.error(e)
+    }
+};
+
+export const savePhoto = (file) => async dispatch => {
+  try {
+     const data = await ProfileAPI.savePhoto(file);
+     dispatch(setPhoto(data.data.data.photos));
+  }  catch (e){
+      console.error(e)
+  }
+};
+
+export const saveProfile = (data) => async dispatch => {
+    try{
+        const res = await ProfileAPI.saveProfile(data);
+        if (res.data.resultCode === 0)
+            return dispatch(getMyProfile());
+        const message = res.data.messages.length > 0 ? res.data.messages[0] : 'some error';
+        dispatch(stopSubmit('description', { _error: message }));
     } catch (e) {
         console.error(e)
     }

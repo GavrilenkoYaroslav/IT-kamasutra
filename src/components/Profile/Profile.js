@@ -9,8 +9,12 @@ const Profile = (props) => {
     return (
         <div className={styles.Profile}>
             <Wallpaper/>
-            {props.isFetching? <Preloader/> :
-            <ProfileInfo profile={props.profile} status={props.status}/>}
+            {props.isFetching ? <Preloader/> :
+                <ProfileInfo profile={props.profile}
+                             status={props.status}
+                             isMyProfile={props.isMyProfile}
+                             savePhoto={props.savePhoto}
+                             saveProfile={props.saveProfile}/>}
             <PostsContainer/>
         </div>
     );

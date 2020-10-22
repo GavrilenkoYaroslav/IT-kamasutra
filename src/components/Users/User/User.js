@@ -20,10 +20,6 @@ const User = (props) => {
             <div>
                 {props.name}
             </div>
-            <div>
-                city
-                country
-            </div>
         </div>
     );
 };

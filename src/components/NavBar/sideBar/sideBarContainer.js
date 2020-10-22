@@ -2,13 +2,18 @@ import React from 'react';
 import {connect} from "react-redux";
 import SideBar from "./sideBar";
 
+const SideBarContainer = (props) => {
+
+    return (
+        <SideBar someUsers={props.someUsers}/>
+    );
+};
 
 const mapStateToProps = (state) => {
    return {
-       DialogsData : state.dialogsPage.DialogsData
+       someUsers : state.dialogsPage.DialogsData
    }
 };
 
-const SideBarContainer = connect(mapStateToProps)(SideBar);
+export default connect(mapStateToProps)(SideBarContainer);
 
-export default SideBarContainer;
