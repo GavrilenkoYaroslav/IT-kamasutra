@@ -4,19 +4,38 @@ import Users from "./Users";
 import {
     follow, getUsers, pageChange,
     setTotalUsersCount, toggleFetching,
-    unfollow
+    unfollow, UserType
 } from "../../redux/reducers/users-reducer";
 import Wallpaper from "../Wallpaper/Wallpaper";
 import Preloader from "../common/Preloader/Preloader";
+import {AppStateType} from "../../redux/redux-store";
 
+type MapStatePropsType = {
+    totalUsersCount: number
+    pageSize: number
+    users: Array<UserType>
+    followingInProgress: Array<number>
+    currentPage: number
+    isFetching: boolean
+}
 
-const UsersContainer = (props) => {
+type MapDispatchPropsType = {
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    setTotalUsersCount: (usersCount: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+    pageChange: (page: number, pageSize: number) => void
+}
+
+type PropsType = MapDispatchPropsType & MapStatePropsType;
+
+const UsersContainer: React.FC<PropsType> = (props) => {
 
     useEffect(() => {
         props.getUsers(props.currentPage, props.pageSize);
     }, [props.currentPage]);
 
-    const onPageChange = (p) => {
+    const onPageChange = (p: number) => {
         props.pageChange(p, props.pageSize);
     };
 
@@ -37,7 +56,7 @@ const UsersContainer = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -49,12 +68,11 @@ const mapStateToProps = (state) => {
 
 };
 
-const mapDispatchToProps = {
+const mapDispatchToProps: MapDispatchPropsType = {
     follow,
     unfollow,
     setTotalUsersCount,
-    toggleFetching,
     getUsers, pageChange
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(UsersContainer);

@@ -3,7 +3,17 @@ import styles from './User.module.css';
 import userLogo from '../../../Images/scalable-vector-graphics-avatar-learning-icon-customer-login-avatar.jpg'
 import {NavLink} from "react-router-dom";
 
-const User = (props) => {
+type PropsType = {
+    id: number
+    logoSrc: string | null
+    followingInProgress: Array<number>
+    followed: boolean
+    name: string
+    follow: (userId:number) => void
+    unfollow: (userId:number) => void
+}
+
+const User: React.FC<PropsType> = (props) => {
     return (
         <div>
             <div className={styles.logo}>

@@ -9,7 +9,7 @@ const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const TOGGLE_FETCHING = 'TOGGLE_FETCHING';
 const TOGGLE_FOLLOWING_IN_PROGRESS = 'TOGGLE_FOLLOWING_IN_PROGRESS';
 
-type UserType = {
+export type UserType = {
     id: number
     name: string
     status: string

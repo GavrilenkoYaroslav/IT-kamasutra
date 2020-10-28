@@ -1,6 +1,6 @@
 import {AuthAPI, ProfileAPI, SequrityAPI} from '../../API/API';
 import {stopSubmit} from 'redux-form';
-import {SET_PHOTO} from "./profile-reducer";
+import {SetPhotoActionType, SET_PHOTO} from "./profile-reducer";
 
 
 export const SET_USER_AUTH_DATA = 'auth_reducer/SET_USER_AUTH_DATA';
@@ -9,7 +9,7 @@ const SET_LOGO_SRC = 'auth_reducer/SET_LOGO_SRC';
 const SET_CAPTCHA = 'auth_reducer/SET_CAPTCHA';
 
 
-type InitialAuthStateType = {
+export type InitialAuthStateType = {
     id: number | null,
     login: string | null,
     email: string | null,
@@ -27,7 +27,7 @@ const initialState: InitialAuthStateType = {
     captchaUrl: ''
 };
 
-const authReducer = (state = initialState, action:any):InitialAuthStateType => {
+const authReducer = (state = initialState, action: ActionsTypes): InitialAuthStateType => {
 
     switch (action.type) {
         case SET_USER_AUTH_DATA:
@@ -46,12 +46,15 @@ const authReducer = (state = initialState, action:any):InitialAuthStateType => {
 
 };
 
+type ActionsTypes = SetLogoSrcType | ToggleFetchingType |
+                    SetCaptchaUrlType | SetUserAuthDataType | SetPhotoActionType;
+
 type SetLogoSrcType = {
     type: typeof SET_LOGO_SRC,
-    logoSrc: string|null
+    logoSrc: string | null
 }
 
-export const setLogoSrc = (logoSrc:string|null):SetLogoSrcType => {
+export const setLogoSrc = (logoSrc: string | null): SetLogoSrcType => {
     return {type: SET_LOGO_SRC, logoSrc};
 };
 
@@ -60,7 +63,7 @@ type ToggleFetchingType = {
     isFetching: boolean
 }
 
-export const toggleFetching = (isFetching:boolean):ToggleFetchingType => {
+export const toggleFetching = (isFetching: boolean): ToggleFetchingType => {
     return {
         type: TOGGLE_FETCHING_AUTH,
         isFetching,
@@ -72,8 +75,8 @@ type SetCaptchaUrlType = {
     url: string
 }
 
-export const setCaptchaUrl = (url:string):SetCaptchaUrlType => {
-   return {type: SET_CAPTCHA, url}
+export const setCaptchaUrl = (url: string): SetCaptchaUrlType => {
+    return {type: SET_CAPTCHA, url}
 };
 
 type AuthDataType = {
@@ -81,12 +84,12 @@ type AuthDataType = {
     login: string | null
     email: string | null
 }
-type SetUserAuthDataType = {
+export type SetUserAuthDataType = {
     type: typeof SET_USER_AUTH_DATA,
     data: AuthDataType
 }
 
-export const setUserAuthData = (id:number|null, login:string|null, email:string|null):SetUserAuthDataType => {
+export const setUserAuthData = (id: number | null, login: string | null, email: string | null): SetUserAuthDataType => {
     return {type: SET_USER_AUTH_DATA, data: {id, login, email}};
 };
 
@@ -125,7 +128,7 @@ export type ProfileType = {
     contacts: ProfileContactsType
 }
 
-export const authMe = () => async (dispatch:any) => {
+export const authMe = () => async (dispatch: any) => {
     try {
         dispatch(toggleFetching(true));
         const data: AuthMeResponseType = await AuthAPI.AuthMe();
@@ -143,7 +146,7 @@ export const authMe = () => async (dispatch:any) => {
 };
 
 type LoginRequestType = {
-    email : string,
+    email: string,
     password: string,
     rememberMe: boolean,
     captcha?: string
@@ -151,15 +154,15 @@ type LoginRequestType = {
 type LoginResponseType = {
     resultCode: number
     messages: Array<string>
-    data: {userId: number}
+    data: { userId: number }
 }
 
-export const login = (data: LoginRequestType) => async (dispatch:any) => {
+export const login = (data: LoginRequestType) => async (dispatch: any) => {
     const res: LoginResponseType = await AuthAPI.AuthLogin(data);
     if (res.resultCode === 0) {
         dispatch(setCaptchaUrl(''));
         return dispatch(authMe());
-    }else {
+    } else {
         if (res.resultCode === 10) {
             await dispatch(getCaptcha());
         }
@@ -168,7 +171,7 @@ export const login = (data: LoginRequestType) => async (dispatch:any) => {
     }
 };
 
-export const logout = () => async (dispatch:any) => {
+export const logout = () => async (dispatch: any) => {
     await AuthAPI.AuthLogout();
     dispatch(setUserAuthData(null, null, null));
 };
@@ -177,11 +180,11 @@ type GetCaptchaResponseType = {
     url: string
 }
 
-export const getCaptcha = () => async (dispatch:any) => {
+export const getCaptcha = () => async (dispatch: any) => {
     try {
         const captcha: GetCaptchaResponseType = await SequrityAPI.getCaptcha();
         dispatch(setCaptchaUrl(captcha.url))
-    }catch (e) {
+    } catch (e) {
         console.error(e)
     }
 };

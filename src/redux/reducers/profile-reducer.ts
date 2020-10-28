@@ -83,10 +83,10 @@ export const setStatusAC = (status: string): SetStatusActionType => {
 
 type SetUserProfileActionType = {
     type: typeof SET_USER_PROFILE
-    profile: ProfileType
+    profile: ProfileType|null
 }
 
-export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => {
+export const setUserProfile = (profile: ProfileType|null): SetUserProfileActionType => {
     return {type: SET_USER_PROFILE, profile}
 };
 
@@ -107,7 +107,7 @@ export const clearProfile = (): ClearProfileActionType => {
     return {type: CLEAR_PROFILE};
 };
 
-type SetPhotoActionType = {
+export type SetPhotoActionType = {
     type: typeof SET_PHOTO
     photos: PhotosType
 }

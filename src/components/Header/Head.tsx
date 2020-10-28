@@ -3,9 +3,15 @@ import styles from './Head.module.css';
 import Preloader from "../common/Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 import avatar from '../../Images/scalable-vector-graphics-avatar-learning-icon-customer-login-avatar.jpg';
+import {InitialAuthStateType, ProfileType} from "../../redux/reducers/auth-reducer";
 
+type PropsType = {
+    auth: InitialAuthStateType
+    logout: () => void
+    setUserProfile: (profile: ProfileType|null) => void
+}
 
-const Header = (props) => {
+const Header: React.FC<PropsType> = (props) => {
 
     const logoutClick = () => {
        props.logout();

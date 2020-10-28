@@ -1,4 +1,4 @@
-import { authMe, SET_USER_AUTH_DATA } from './auth-reducer';
+import {authMe, SET_USER_AUTH_DATA, SetUserAuthDataType} from './auth-reducer';
 
 type InitialSatateType = {
     initialized: boolean
@@ -9,7 +9,7 @@ const initialState = {
 };
 
 
-const appReducer = (state = initialState, action:any):InitialSatateType => {
+const appReducer = (state = initialState, action: SetUserAuthDataType):InitialSatateType => {
 
     switch (action.type) {
         case SET_USER_AUTH_DATA:
