@@ -36,6 +36,7 @@ export const ProfileAPI = {
 
     getStatus (id) {
         return instance.get(`profile/status/${id}`)
+            .then( response => response.data)
     },
 
     setStatus (status) {
@@ -49,11 +50,12 @@ export const ProfileAPI = {
             headers: {
                 'Content-Type' : 'multipart/form-data'
             }
-        })
+        }).then( response => response.data)
     },
 
     saveProfile(data){
         return instance.put('profile', data)
+            .then( response => response.data)
     }
 
 };
@@ -67,6 +69,7 @@ export const AuthAPI = {
 
     AuthLogin(data){
         return instance.post('auth/login', data)
+            .then(response => response.data)
     },
 
     AuthLogout(){
@@ -79,5 +82,6 @@ export const SequrityAPI = {
 
     getCaptcha(){
         return instance.get('security/get-captcha-url')
+            .then(response => response.data)
     }
 };

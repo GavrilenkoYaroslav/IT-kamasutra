@@ -1,12 +1,15 @@
 import { authMe, SET_USER_AUTH_DATA } from './auth-reducer';
 
+type InitialSatateType = {
+    initialized: boolean
+}
 
-let initialState = {
+const initialState = {
   initialized : false
 };
 
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action:any):InitialSatateType => {
 
     switch (action.type) {
         case SET_USER_AUTH_DATA:
@@ -17,7 +20,7 @@ const appReducer = (state = initialState, action) => {
 };
 
 
-export const initializeApp = () =>  dispatch => {
+export const initializeApp = () =>  (dispatch:any) => {
     dispatch(authMe());
 };
 
