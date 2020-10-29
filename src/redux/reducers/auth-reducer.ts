@@ -1,6 +1,8 @@
-import {AuthAPI, ProfileAPI, SequrityAPI} from '../../API/API';
-import {stopSubmit} from 'redux-form';
+import {AuthAPI, LoginRequestType, ProfileAPI, resultCodes, SequrityAPI} from '../../API/API';
+import {FormAction, stopSubmit} from 'redux-form';
 import {SetPhotoActionType, SET_PHOTO} from "./profile-reducer";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "../redux-store";
 
 
 export const SET_USER_AUTH_DATA = 'auth_reducer/SET_USER_AUTH_DATA';
@@ -93,17 +95,6 @@ export const setUserAuthData = (id: number | null, login: string | null, email: 
     return {type: SET_USER_AUTH_DATA, data: {id, login, email}};
 };
 
-type AuthMeResponseBodyType = {
-    id: number
-    email: string
-    login: string
-}
-export type AuthMeResponseType = {
-    resultCode: number
-    messages: Array<string>
-    data: AuthMeResponseBodyType
-}
-
 type ProfileContactsType = {
     github: string
     vk: string
@@ -128,15 +119,18 @@ export type ProfileType = {
     contacts: ProfileContactsType
 }
 
-export const authMe = () => async (dispatch: any) => {
+
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes | FormAction>;
+
+export const authMe = (): ThunkType => async dispatch => {
     try {
         dispatch(toggleFetching(true));
-        const data: AuthMeResponseType = await AuthAPI.AuthMe();
+        const data = await AuthAPI.AuthMe();
 
         const {id, login, email} = data.data;
         dispatch(setUserAuthData(id, login, email));
 
-        const profile: ProfileType = id && await ProfileAPI.getProfile(id);
+        const profile = id && await ProfileAPI.getProfile(id);
         profile && dispatch(setLogoSrc(profile.photos.small));
     } catch (e) {
         console.error(e);
@@ -145,25 +139,14 @@ export const authMe = () => async (dispatch: any) => {
     }
 };
 
-type LoginRequestType = {
-    email: string,
-    password: string,
-    rememberMe: boolean,
-    captcha?: string
-}
-type LoginResponseType = {
-    resultCode: number
-    messages: Array<string>
-    data: { userId: number }
-}
 
-export const login = (data: LoginRequestType) => async (dispatch: any) => {
-    const res: LoginResponseType = await AuthAPI.AuthLogin(data);
-    if (res.resultCode === 0) {
+export const login = (data: LoginRequestType): ThunkType => async dispatch => {
+    const res = await AuthAPI.AuthLogin(data);
+    if (res.resultCode === resultCodes.Success) {
         dispatch(setCaptchaUrl(''));
         return dispatch(authMe());
     } else {
-        if (res.resultCode === 10) {
+        if (res.resultCode === resultCodes.CaptchaIsRequired) {
             await dispatch(getCaptcha());
         }
         const message = res.messages.length > 0 ? res.messages[0] : 'some error';
@@ -171,18 +154,15 @@ export const login = (data: LoginRequestType) => async (dispatch: any) => {
     }
 };
 
-export const logout = () => async (dispatch: any) => {
+export const logout = (): ThunkType => async dispatch => {
     await AuthAPI.AuthLogout();
     dispatch(setUserAuthData(null, null, null));
 };
 
-type GetCaptchaResponseType = {
-    url: string
-}
 
-export const getCaptcha = () => async (dispatch: any) => {
+export const getCaptcha = (): ThunkType => async dispatch => {
     try {
-        const captcha: GetCaptchaResponseType = await SequrityAPI.getCaptcha();
+        const captcha = await SequrityAPI.getCaptcha();
         dispatch(setCaptchaUrl(captcha.url))
     } catch (e) {
         console.error(e)

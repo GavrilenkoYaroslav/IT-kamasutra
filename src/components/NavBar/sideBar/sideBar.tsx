@@ -1,8 +1,13 @@
 import React from 'react';
 import styles from './sideBar.module.css';
 import Friend from './friend/friend';
+import {DialogType} from "../../../redux/reducers/dialogs-reducer";
 
-const SideBar = (props) => {
+type PropsType = {
+    someUsers: Array<DialogType>
+}
+
+const SideBar: React.FC<PropsType> = (props) => {
 
     return(
         <div className={styles.sideBar}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './DialogItem.module.css';
 import {NavLink} from "react-router-dom";
-import userLogo from '../../../Images/scalable-vector-graphics-avatar-learning-icon-customer-login-avatar.jpg'
+import userLogo from '../../../../Images/scalable-vector-graphics-avatar-learning-icon-customer-login-avatar.jpg'
 
 type PropsType = {
     logoSrc: string|null

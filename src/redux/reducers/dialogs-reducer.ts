@@ -40,12 +40,12 @@ const initialState = {
 };
 
 
-const dialogsReducer = (state = initialState, action:any): InitialStateType => {
+const dialogsReducer = (state = initialState, action: SendMessageType): InitialStateType => {
 
     switch (action.type) {
         case SEND_MESSAGE: {
-            let messageId = state.MessagesData.length + 1;
-            let newMessage = {
+            const messageId = state.MessagesData.length + 1;
+            const newMessage = {
                 id: messageId,
                 message: action.message
             };

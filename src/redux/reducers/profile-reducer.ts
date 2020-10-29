@@ -1,6 +1,8 @@
-import {AuthAPI, ProfileAPI} from "../../API/API";
+import {AuthAPI, ProfileAPI, resultCodes} from "../../API/API";
 import {stopSubmit} from "redux-form";
-import {AuthMeResponseType, PhotosType, ProfileType} from "./auth-reducer";
+import {PhotosType, ProfileType} from "./auth-reducer";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "../redux-store";
 
 export const SET_PHOTO = 'profile_reducer/SET_PHOTO';
 const CLEAR_PROFILE = 'profile_reducer/CLEAR_PROFILE';
@@ -27,7 +29,7 @@ const initialState = {
     isFetching: false,
 };
 
-const profileReducer = (state = initialState, action: any): InitialProfileState => {
+const profileReducer = (state = initialState, action: ActionsTypes): InitialProfileState => {
 
     switch (action.type) {
         case ADD_POST: {
@@ -59,6 +61,9 @@ const profileReducer = (state = initialState, action: any): InitialProfileState 
     }
 
 };
+
+type ActionsTypes = ToggleFetchingType | SetStatusActionType | SetUserProfileActionType |
+    AddPostActionType | ClearProfileActionType | SetPhotoActionType;
 
 type ToggleFetchingType = {
     type: typeof TOGGLE_FETCHING
@@ -117,7 +122,9 @@ export const setPhoto = (photos: PhotosType): SetPhotoActionType => {
 };
 
 
-export const getUserProfile = (userId: number) => async (dispatch: any) => {
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+
+export const getUserProfile = (userId: number): ThunkType => async dispatch => {
     dispatch(toggleFetching(true));
     try {
         const data: ProfileType = await ProfileAPI.getProfile(userId);
@@ -130,10 +137,10 @@ export const getUserProfile = (userId: number) => async (dispatch: any) => {
     }
 };
 
-export const getMyProfile = () => async (dispatch: any) => {
+export const getMyProfile = (): ThunkType => async dispatch => {
     try {
-        const data: AuthMeResponseType = await AuthAPI.AuthMe();
-        if (data.resultCode === 0) {
+        const data = await AuthAPI.AuthMe();
+        if (data.resultCode === resultCodes.Success) {
             dispatch(getUserProfile(data.data.id));
         }
     } catch (e) {
@@ -141,40 +148,29 @@ export const getMyProfile = () => async (dispatch: any) => {
     }
 };
 
-export const getUserStatus = (userId: number) => async (dispatch: any) => {
+export const getUserStatus = (userId: number): ThunkType => async dispatch => {
     try {
-        const data:string = await ProfileAPI.getStatus(userId);
+        const data = await ProfileAPI.getStatus(userId);
         dispatch(setStatusAC(data));
     } catch (e) {
         console.error(e)
     }
 };
 
-type SavePhotoResponseType = {
-    resultCode: number
-    messages: Array<string>
-    data: { photos: PhotosType}
-}
 
-export const savePhoto = (file: any) => async (dispatch: any) => {
+export const savePhoto = (file: any): ThunkType => async dispatch => {
   try {
-     const data: SavePhotoResponseType = await ProfileAPI.savePhoto(file);
+     const data = await ProfileAPI.savePhoto(file);
      dispatch(setPhoto(data.data.photos));
   }  catch (e){
       console.error(e)
   }
 };
 
-type SaveProfileResponseType = {
-    resultCode: number
-    messages: Array<string>
-    data: object
-}
-
-export const saveProfile = (data: ProfileType) => async (dispatch: any) => {
+export const saveProfile = (data: ProfileType): ThunkType => async dispatch => {
     try{
-        const res: SaveProfileResponseType = await ProfileAPI.saveProfile(data);
-        if (res.resultCode === 0)
+        const res = await ProfileAPI.saveProfile(data);
+        if (res.resultCode === resultCodes.Success)
             return dispatch(getMyProfile());
         const message = res.messages.length > 0 ? res.messages[0] : 'some error';
         dispatch(stopSubmit('description', { _error: message }));
@@ -182,6 +178,5 @@ export const saveProfile = (data: ProfileType) => async (dispatch: any) => {
         console.error(e)
     }
 };
-
 
 export default profileReducer;

@@ -1,4 +1,8 @@
 import {authMe, SET_USER_AUTH_DATA, SetUserAuthDataType} from './auth-reducer';
+import {AnyAction} from "redux";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "../redux-store";
+
 
 type InitialSatateType = {
     initialized: boolean
@@ -20,7 +24,7 @@ const appReducer = (state = initialState, action: SetUserAuthDataType):InitialSa
 };
 
 
-export const initializeApp = () =>  (dispatch:any) => {
+export const initializeApp = (): ThunkAction< void, AppStateType, unknown, AnyAction> => dispatch => {
     dispatch(authMe());
 };
 
