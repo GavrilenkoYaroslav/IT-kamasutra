@@ -5,7 +5,7 @@ import DialogListContainer from "./DialogsList/DialogListContainer";
 import MessagesContainer from "./Messages/MessagesContainer";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 
-const Dialogs = () => {
+const Dialogs: React.FC = () => {
     return (
         <div>
             <Wallpaper/>

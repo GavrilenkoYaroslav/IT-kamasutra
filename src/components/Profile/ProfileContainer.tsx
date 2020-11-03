@@ -8,11 +8,35 @@ import {
     getUserStatus,
     savePhoto, saveProfile
 } from "../../redux/reducers/profile-reducer";
-import {withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
+import {ProfileType} from "../../redux/reducers/auth-reducer";
+import {DescriptionFormDataType} from "./Profile-info/DescriptionForm";
+import {AppStateType} from "../../redux/redux-store";
 
 
-const ProfileContainer = (props) => {
+
+type MapstatePropsType = {
+    profile: ProfileType | null
+    status: string
+    isFetching: boolean
+    id: number | null
+}
+type MapDispatchPropsType = {
+    getUserProfile: (id: number)=>void
+    getMyProfile: ()=>void
+    getUserStatus: (id: number)=>void
+    clearProfile: ()=>void
+    savePhoto: (file: any)=>void
+    saveProfile: (profile: DescriptionFormDataType)=>void
+}
+type UrlParamsType = {
+    userId: string | undefined
+}
+type PropsType = MapstatePropsType & MapDispatchPropsType & RouteComponentProps<UrlParamsType>;
+
+
+const ProfileContainer: React.FC<PropsType> = (props) => {
 
     useEffect(() => {
         if (!props.match.params.userId) {
@@ -20,7 +44,7 @@ const ProfileContainer = (props) => {
             props.getMyProfile();
         } else {
             let userId = props.match.params.userId;
-            props.getUserProfile(userId);
+            props.getUserProfile(Number(userId));
         }
     }, [props.match.params.userId]);
 
@@ -35,7 +59,7 @@ const ProfileContainer = (props) => {
 };
 
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType):MapstatePropsType => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
@@ -44,7 +68,7 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = {
+let mapDispatchToProps: MapDispatchPropsType = {
     getUserProfile,
     getMyProfile,
     getUserStatus,
@@ -54,6 +78,6 @@ let mapDispatchToProps = {
 };
 
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect<MapstatePropsType,MapDispatchPropsType,{},AppStateType>(mapStateToProps, mapDispatchToProps),
     withRouter
 )(ProfileContainer);

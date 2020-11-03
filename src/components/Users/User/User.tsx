@@ -18,7 +18,7 @@ const User: React.FC<PropsType> = (props) => {
         <div>
             <div className={styles.logo}>
                 <NavLink to={`/profile/${props.id}`}>
-                    <img src={props.logoSrc || userLogo}/>
+                    <img src={props.logoSrc || userLogo} alt={''}/>
                 </NavLink>
             </div>
             <div>

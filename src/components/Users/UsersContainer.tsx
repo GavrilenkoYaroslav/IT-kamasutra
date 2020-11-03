@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import Users from "./Users";
 import {
     follow, getUsers, pageChange,
-    setTotalUsersCount, toggleFetching,
+    setTotalUsersCount,
     unfollow, UserType
 } from "../../redux/reducers/users-reducer";
 import Wallpaper from "../Wallpaper/Wallpaper";

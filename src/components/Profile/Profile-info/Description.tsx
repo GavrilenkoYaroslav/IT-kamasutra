@@ -1,7 +1,12 @@
 import styles from "./Profile-Info.module.css";
 import React from "react";
+import {ProfileType} from "../../../redux/reducers/auth-reducer";
 
-const Description = (props) => {
+type PropsType = {
+    profile: ProfileType
+}
+
+const Description: React.FC<PropsType> = (props) => {
     return (
         <div>
             <div>
@@ -30,7 +35,13 @@ const Description = (props) => {
     );
 };
 
-const Contacts = (props) => {
+
+type ContactsPropsType = {
+    title: string
+    value: string
+}
+
+const Contacts: React.FC<ContactsPropsType> = (props) => {
     return (
         <div><b>{props.title}</b> : {props.value}</div>
     );

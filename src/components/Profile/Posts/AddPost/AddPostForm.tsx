@@ -1,12 +1,16 @@
 import React from 'react';
 import styles from './AddPost.module.css';
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Textarea} from "../../../common/customElements/Inputs";
 import {maxLengthCreator, required} from "../../../../utils/validators";
 
 const maxLength30 = maxLengthCreator(30);
 
-const AddPostForm = (props) => {
+export type PostDataType = {
+    postMessage: string
+}
+
+const AddPostForm: React.FC<InjectedFormProps<PostDataType, {}>> = (props) => {
 
     return (
         <form onSubmit={props.handleSubmit} className={styles.form}>
@@ -17,4 +21,4 @@ const AddPostForm = (props) => {
     );
 };
 
-export default reduxForm({form : 'addPostForm'})(AddPostForm);
+export default reduxForm<PostDataType, {}>({form: 'addPostForm'})(AddPostForm);

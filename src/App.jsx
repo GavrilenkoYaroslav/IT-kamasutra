@@ -3,7 +3,7 @@ import './App.css';
 import NavBar from "./components/NavBar/NavBar";
 import Music from './components/Music/Music';
 import News from './components/News/News';
-import Settings from './components/Settings/Settings.tsx';
+import Settings from './components/Settings/Settings';
 import {BrowserRouter, Route} from "react-router-dom";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -16,7 +16,7 @@ const Login = React.lazy(()=> import("./components/Login/Login"));
 const Dialogs = React.lazy(()=>import('./components/Dialogs/Dialogs'));
 
 
-const App = (props) => {
+const App= (props) => {
 
     useEffect(()=>{
       props.initializeApp();
@@ -42,7 +42,7 @@ const App = (props) => {
         );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
       initialized : state.app.initialized
   }

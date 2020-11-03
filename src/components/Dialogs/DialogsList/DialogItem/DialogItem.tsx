@@ -12,7 +12,7 @@ type PropsType = {
 const DialogItem: React.FC<PropsType> = (props) => {
     return(
         <div className={styles.dialog}>
-            <img src={props.logoSrc || userLogo}/>
+            <img src={props.logoSrc || userLogo} alt={''}/>
             <NavLink to={`/dialogs/${props.id}`} activeClassName={styles.active}> {props.name} </NavLink>
         </div>
     );

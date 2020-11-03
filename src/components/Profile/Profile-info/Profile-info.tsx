@@ -1,12 +1,20 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import styles from './Profile-Info.module.css';
 import Status from "./Status";
 import userLogo from '../../../Images/scalable-vector-graphics-avatar-learning-icon-customer-login-avatar.jpg'
-import DescriptionForm from "./DescriptionForm";
+import DescriptionForm, {DescriptionFormDataType} from "./DescriptionForm";
 import Description from "./Description";
+import {ProfileType} from "../../../redux/reducers/auth-reducer";
 
+type PropsType = {
+    savePhoto: (file: any) => void
+    saveProfile: (profile: DescriptionFormDataType) => void
+    profile: ProfileType | null
+    isMyProfile: boolean
+    status: string
+}
 
-const ProfileInfo = (props) => {
+const ProfileInfo: React.FC<PropsType> = (props) => {
 
     const [editMode, setEditMode] = useState(false);
 
@@ -14,14 +22,14 @@ const ProfileInfo = (props) => {
         setEditMode(true);
     };
 
-    const upploadPhoto = (e) => {
-        e.target.files.length &&
-        props.savePhoto(e.target.files[0]);
+    const upploadPhoto = (e: ChangeEvent<HTMLInputElement>) => {
+        e.target.files!.length &&
+        props.savePhoto(e.target.files![0]);
         e.target.value = '';
 
     };
 
-    const onSubmit = (data) => {
+    const onSubmit = (data: DescriptionFormDataType) => {
         props.saveProfile(data);
     };
 
@@ -33,7 +41,7 @@ const ProfileInfo = (props) => {
     return (
         <div className={styles.user}>
             <div className={styles.Avatar}>
-                <img src={props.profile.photos.large || userLogo}/>
+                <img src={props.profile.photos.large || userLogo} alt={''}/>
                 {props.isMyProfile && <input onChange={upploadPhoto}
                                              type={'file'}/>}
                 <div className={styles.status}>

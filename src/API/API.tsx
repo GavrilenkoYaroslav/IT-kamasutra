@@ -1,6 +1,7 @@
 import axios from "axios";
 import {UserType} from "../redux/reducers/users-reducer";
 import {PhotosType, ProfileType} from "../redux/reducers/auth-reducer";
+import {DescriptionFormDataType} from "../components/Profile/Profile-info/DescriptionForm";
 
 const instance = axios.create({
     withCredentials: true,
@@ -79,7 +80,7 @@ export const ProfileAPI = {
         }).then(response => response.data)
     },
 
-    saveProfile(data: ProfileType) {
+    saveProfile(data: DescriptionFormDataType) {
         return instance.put<ResponseType>('profile', data)
             .then(response => response.data)
     }

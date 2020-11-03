@@ -1,7 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {ProfileAPI} from "../../../API/API";
 
-const Status = (props) => {
+type PropsType = {
+    status: string
+}
+
+const Status: React.FC<PropsType> = (props) => {
 
     const [status, setStatus] = useState(props.status);
     const [editMode, setEditMode] = useState(false);
@@ -19,7 +23,7 @@ const Status = (props) => {
         ProfileAPI.setStatus(status);
     };
 
-    const statusChange = (e) => {
+    const statusChange = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.target.value);
     };
 

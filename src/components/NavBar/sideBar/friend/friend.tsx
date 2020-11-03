@@ -11,7 +11,7 @@ type PropsType = {
 const Friend: React.FC<PropsType> = (props) => {
     return(
         <div className={styles.friend}>
-            <img src={props.logoSrc || userLogo}/>
+            <img src={props.logoSrc || userLogo} alt={''}/>
             <div className={styles.friendName}>{props.name}</div>
         </div>
     );

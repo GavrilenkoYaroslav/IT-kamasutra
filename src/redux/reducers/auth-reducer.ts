@@ -95,7 +95,8 @@ export const setUserAuthData = (id: number | null, login: string | null, email: 
     return {type: SET_USER_AUTH_DATA, data: {id, login, email}};
 };
 
-type ProfileContactsType = {
+export type ProfileContactsType = {
+    [key : string] : string
     github: string
     vk: string
     facebook: string

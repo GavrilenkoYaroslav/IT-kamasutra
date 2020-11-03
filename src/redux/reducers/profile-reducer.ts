@@ -3,6 +3,7 @@ import {stopSubmit} from "redux-form";
 import {PhotosType, ProfileType} from "./auth-reducer";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../redux-store";
+import {DescriptionFormDataType} from "../../components/Profile/Profile-info/DescriptionForm";
 
 export const SET_PHOTO = 'profile_reducer/SET_PHOTO';
 const CLEAR_PROFILE = 'profile_reducer/CLEAR_PROFILE';
@@ -11,7 +12,7 @@ const SET_USER_PROFILE = 'profile_reducer/SET_USER_PROFILE';
 const SET_STATUS = 'profile_reducer/SET_STATUS';
 const TOGGLE_FETCHING = 'profile_reducer/TOGGLE_FETCHING';
 
-type PostType = {
+export type PostType = {
     id: number
     post: string
     likesCount: number
@@ -167,7 +168,7 @@ export const savePhoto = (file: any): ThunkType => async dispatch => {
   }
 };
 
-export const saveProfile = (data: ProfileType): ThunkType => async dispatch => {
+export const saveProfile = (data: DescriptionFormDataType): ThunkType => async dispatch => {
     try{
         const res = await ProfileAPI.saveProfile(data);
         if (res.resultCode === resultCodes.Success)

@@ -1,20 +1,16 @@
 import React from 'react';
 import DialogList from "./DialogList";
-import {connect} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import {DialogType} from "../../../redux/reducers/dialogs-reducer";
 
-type MapStatePropsType = {
-    DialogsData: Array<DialogType>
-}
+const DialogListContainer = () => {
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
-   return {
-       DialogsData : state.dialogsPage.DialogsData
-   }
+    const DialogsData: Array<DialogType> = useSelector((state: AppStateType) => state.dialogsPage.DialogsData);
+
+  return (
+        <DialogList DialogsData={DialogsData}/>
+  );
 };
-
-const DialogListContainer = connect<MapStatePropsType, {}, {}, AppStateType>(mapStateToProps)(DialogList);
-
 
 export default DialogListContainer;

@@ -1,10 +1,19 @@
 import React from 'react';
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import styles from './DescriptionForm.module.css';
 import {Input, Textarea} from "../../common/customElements/Inputs";
 import {required} from "../../../utils/validators";
+import {ProfileContactsType} from "../../../redux/reducers/auth-reducer";
 
-const DescriptionForm = (props) => {
+export type DescriptionFormDataType = {
+    fullName: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    aboutMe: string
+    contacts: ProfileContactsType
+}
+
+const DescriptionForm: React.FC<InjectedFormProps<DescriptionFormDataType,{}>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className={styles.form}>
             <div>
@@ -54,4 +63,4 @@ const DescriptionForm = (props) => {
     );
 };
 
-export default reduxForm({form: 'description'})(DescriptionForm);
+export default reduxForm<DescriptionFormDataType, {}>({form: 'description'})(DescriptionForm);
