@@ -77,7 +77,7 @@ let mapDispatchToProps: MapDispatchPropsType = {
     saveProfile
 };
 
-export default compose(
+export default compose<React.ComponentType>(
     connect<MapstatePropsType,MapDispatchPropsType,{},AppStateType>(mapStateToProps, mapDispatchToProps),
     withRouter
 )(ProfileContainer);

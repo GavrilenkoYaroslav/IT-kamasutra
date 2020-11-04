@@ -24,6 +24,7 @@ const Description: React.FC<PropsType> = (props) => {
                 </div>
             </div>
             <div>
+                <hr/>
                 <b>Contacts:</b>
             </div>
             <div className={styles.contacts}>

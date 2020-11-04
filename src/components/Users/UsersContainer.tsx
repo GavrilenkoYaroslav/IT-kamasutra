@@ -50,8 +50,7 @@ const UsersContainer: React.FC<PropsType> = (props) => {
                        unfollow={props.unfollow}
                        currentPage={props.currentPage}
                        onPageChange={onPageChange}
-                       followingInProgress={props.followingInProgress}
-                />}
+                       followingInProgress={props.followingInProgress} />}
         </>
     );
 };
@@ -72,7 +71,8 @@ const mapDispatchToProps: MapDispatchPropsType = {
     follow,
     unfollow,
     setTotalUsersCount,
-    getUsers, pageChange
+    getUsers,
+    pageChange
 };
 
 export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(UsersContainer);

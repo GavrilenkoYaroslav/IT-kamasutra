@@ -1,8 +1,11 @@
-import {AuthAPI, LoginRequestType, ProfileAPI, resultCodes, SequrityAPI} from '../../API/API';
+import {resultCodes} from '../../API/API';
 import {FormAction, stopSubmit} from 'redux-form';
 import {SetPhotoActionType, SET_PHOTO} from "./profile-reducer";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../redux-store";
+import {ProfileAPI} from "../../API/ProfileAPI";
+import {AuthAPI, LoginRequestType} from "../../API/AuthAPI";
+import {SequrityAPI} from "../../API/SequrityAPI";
 
 
 export const SET_USER_AUTH_DATA = 'auth_reducer/SET_USER_AUTH_DATA';

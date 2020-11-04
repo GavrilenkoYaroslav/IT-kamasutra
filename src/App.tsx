@@ -12,11 +12,19 @@ import {connect} from "react-redux";
 import {initializeApp} from "./redux/reducers/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import {withSuspense} from "./HOC/withSuspense";
+import {AppStateType} from "./redux/redux-store";
 const Login = React.lazy(()=> import("./components/Login/Login"));
 const Dialogs = React.lazy(()=>import('./components/Dialogs/Dialogs'));
 
+type MapStatePropsType = {
+    initialized: boolean
+}
+type MapDispatchPropsType = {
+    initializeApp: () => void
+}
+type PropsType = MapStatePropsType & MapDispatchPropsType;
 
-const App= (props) => {
+const App: React.FC<PropsType> = (props) => {
 
     useEffect(()=>{
       props.initializeApp();
@@ -42,14 +50,14 @@ const App= (props) => {
         );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
       initialized : state.app.initialized
   }
 };
 
-const mapDispatchToProps = {
+const mapDispatchToProps: MapDispatchPropsType = {
     initializeApp
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(App);

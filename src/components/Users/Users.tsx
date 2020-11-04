@@ -1,5 +1,5 @@
 import React from 'react';
-import {UserType} from '../../redux/reducers/users-reducer';
+import {changePage, UserType} from '../../redux/reducers/users-reducer';
 import User from "./User/User";
 import styles from './users.module.css';
 
@@ -27,9 +27,13 @@ const Users: React.FC<PropsType> = (props) => {
         <div>
             <div className={styles.usersContainer}>
                 {props.users.map(user => (
-                    <User key={user.id} id={user.id} logoSrc={user.photos.small} name={user.name}
-                          followed={user.followed} follow={props.follow}
-                          unfollow={props.unfollow} followingInProgress={props.followingInProgress}/>))}
+                    <User key={user.id} id={user.id}
+                          logoSrc={user.photos.small}
+                          name={user.name}
+                          followed={user.followed}
+                          follow={props.follow}
+                          unfollow={props.unfollow}
+                          followingInProgress={props.followingInProgress} />))}
             </div>
             <div className={styles.pages}>
                 {pages.map(p => {

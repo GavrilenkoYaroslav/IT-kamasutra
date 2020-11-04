@@ -3,7 +3,7 @@ import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {AppStateType} from "../redux/redux-store";
 
-let mapStateToPropsForRedirect = (state:AppStateType): PropsType => {
+const mapStateToPropsForRedirect = (state:AppStateType): PropsType => {
     return {
         id: state.auth.id
     }
@@ -23,8 +23,6 @@ export const withAuthRedirect = (Component: React.FC) => {
         return <Component {...props}/>
     };
 
-    const connectedWithAuthRedirectContainer = connect<PropsType,{},{},AppStateType>(mapStateToPropsForRedirect)(withAuthRedirectContainer);
-
-    return connectedWithAuthRedirectContainer;
+    return connect<PropsType,{},{},AppStateType>(mapStateToPropsForRedirect)(withAuthRedirectContainer);
 
 };

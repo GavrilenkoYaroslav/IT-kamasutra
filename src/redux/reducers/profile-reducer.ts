@@ -1,9 +1,11 @@
-import {AuthAPI, ProfileAPI, resultCodes} from "../../API/API";
+import {resultCodes} from "../../API/API";
 import {stopSubmit} from "redux-form";
 import {PhotosType, ProfileType} from "./auth-reducer";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../redux-store";
 import {DescriptionFormDataType} from "../../components/Profile/Profile-info/DescriptionForm";
+import {ProfileAPI} from "../../API/ProfileAPI";
+import {AuthAPI} from "../../API/AuthAPI";
 
 export const SET_PHOTO = 'profile_reducer/SET_PHOTO';
 const CLEAR_PROFILE = 'profile_reducer/CLEAR_PROFILE';
@@ -159,7 +161,7 @@ export const getUserStatus = (userId: number): ThunkType => async dispatch => {
 };
 
 
-export const savePhoto = (file: any): ThunkType => async dispatch => {
+export const savePhoto = (file: File): ThunkType => async dispatch => {
   try {
      const data = await ProfileAPI.savePhoto(file);
      dispatch(setPhoto(data.data.photos));

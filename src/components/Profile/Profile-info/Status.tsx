@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {ProfileAPI} from "../../../API/API";
+import {ProfileAPI} from "../../../API/ProfileAPI";
 
 type PropsType = {
     status: string

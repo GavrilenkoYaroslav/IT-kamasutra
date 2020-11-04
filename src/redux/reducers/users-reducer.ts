@@ -1,7 +1,8 @@
-import {resultCodes, UsersAPI} from "../../API/API";
+import {resultCodes} from "../../API/API";
 import {PhotosType} from "./auth-reducer";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../redux-store";
+import {UsersAPI} from "../../API/UsersAPI";
 
 
 const FOLLOW = 'FOLLOW';
