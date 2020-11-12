@@ -8,12 +8,13 @@ import {
     getUserStatus,
     savePhoto, saveProfile
 } from "../../redux/reducers/profile-reducer";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {NavLink, RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {ProfileType} from "../../redux/reducers/auth-reducer";
 import {DescriptionFormDataType} from "./Profile-info/DescriptionForm";
 import {AppStateType} from "../../redux/redux-store";
-
+import Wallpaper from "../Wallpaper/Wallpaper";
+import Preloader from "../common/Preloader/Preloader";
 
 
 type MapstatePropsType = {
@@ -23,12 +24,12 @@ type MapstatePropsType = {
     id: number | null
 }
 type MapDispatchPropsType = {
-    getUserProfile: (id: number)=>void
-    getMyProfile: ()=>void
-    getUserStatus: (id: number)=>void
-    clearProfile: ()=>void
-    savePhoto: (file: any)=>void
-    saveProfile: (profile: DescriptionFormDataType)=>void
+    getUserProfile: (id: number) => void
+    getMyProfile: () => void
+    getUserStatus: (id: number) => void
+    clearProfile: () => void
+    savePhoto: (file: any) => void
+    saveProfile: (profile: DescriptionFormDataType) => void
 }
 type UrlParamsType = {
     userId: string | undefined
@@ -48,18 +49,32 @@ const ProfileContainer: React.FC<PropsType> = (props) => {
         }
     }, [props.match.params.userId]);
 
+    if (!props.profile) {
+        return (
+            <>
+                {props.isFetching ? <Preloader/> :
+                    <>
+                        <Wallpaper/>
+                        < div style={{margin: '10px'}}>Please <NavLink to='/login'><b>Log In</b></NavLink></div>
+                    </>}
+            </>
+        );
+    }
 
     return (
-        <Profile profile={props.profile} status={props.status}
-                 isFetching={props.isFetching} isMyProfile={!props.match.params.userId}
-                 savePhoto={props.savePhoto}
-                 saveProfile={props.saveProfile}/>
+        <>
+            <Wallpaper/>
+            <Profile profile={props.profile} status={props.status}
+                     isFetching={props.isFetching} isMyProfile={!props.match.params.userId}
+                     savePhoto={props.savePhoto}
+                     saveProfile={props.saveProfile}/>
+        </>
     );
 
 };
 
 
-let mapStateToProps = (state: AppStateType):MapstatePropsType => {
+let mapStateToProps = (state: AppStateType): MapstatePropsType => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
@@ -78,6 +93,6 @@ let mapDispatchToProps: MapDispatchPropsType = {
 };
 
 export default compose<React.ComponentType>(
-    connect<MapstatePropsType,MapDispatchPropsType,{},AppStateType>(mapStateToProps, mapDispatchToProps),
+    connect<MapstatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps),
     withRouter
 )(ProfileContainer);

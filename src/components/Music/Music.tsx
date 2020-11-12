@@ -6,7 +6,9 @@ const Music = () => {
     return (
         <div>
             <Wallpaper/>
+            <div>
             Music
+            </div>
         </div>
     );
 };

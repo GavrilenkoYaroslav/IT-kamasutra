@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './SendMessage.module.css';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Textarea} from "../../../common/customElements/Inputs";
+import {CustomTextarea} from "../../../common/customElements/Inputs";
 import {maxLengthCreator, required} from "../../../../utils/validators";
 
 const maxLength30 = maxLengthCreator(30);
@@ -14,7 +14,7 @@ const SendMessageForm: React.FC<InjectedFormProps<MessageFormDataType>> = (props
 
     return (
         <form className={styles.sendMessage} onSubmit={props.handleSubmit}>
-            <Field name={'message'} component={Textarea}
+            <Field name={'message'} component={CustomTextarea}
                    placeholder={'enter your message'} validate={[required, maxLength30]}/>
             <button>Send message</button>
         </form>

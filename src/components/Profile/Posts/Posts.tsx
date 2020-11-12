@@ -8,6 +8,8 @@ type PropsType = {
     addPost: (post: string) => void
     postData: Array<PostType>
     resetForm: () => void
+    isMyProfile: boolean
+    profileFullName: string
 }
 
 const Posts: React.FC<PropsType> = (props) => {
@@ -22,9 +24,11 @@ const Posts: React.FC<PropsType> = (props) => {
 
     return (
         <div className={styles.Posts}>
-            <AddPostForm onSubmit={onSubmit}/>
+            {props.isMyProfile && <AddPostForm onSubmit={onSubmit}/>}
             <div>
-                <div className={styles.title}><b>My posts</b></div>
+                <div className={styles.title}>
+                    {props.isMyProfile? <b>My posts</b> : <b>{props.profileFullName}'s posts</b>}
+                    </div>
                 {postElements}
             </div>
         </div>

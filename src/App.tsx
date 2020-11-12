@@ -4,7 +4,7 @@ import NavBar from "./components/NavBar/NavBar";
 import Music from './components/Music/Music';
 import News from './components/News/News';
 import Settings from './components/Settings/Settings';
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeadContainer";
@@ -15,6 +15,7 @@ import {withSuspense} from "./HOC/withSuspense";
 import {AppStateType} from "./redux/redux-store";
 const Login = React.lazy(()=> import("./components/Login/Login"));
 const Dialogs = React.lazy(()=>import('./components/Dialogs/Dialogs'));
+
 
 type MapStatePropsType = {
     initialized: boolean
@@ -33,7 +34,9 @@ const App: React.FC<PropsType> = (props) => {
         if (!props.initialized) return <Preloader/>;
         return (
             <BrowserRouter>
-                <div className={'Wrapper'}>
+                <Switch>
+                <Route exact path='/login' render={withSuspense(Login)}/>
+                <Route path='/' render={()=> <div className={'Wrapper'}>
                     <HeaderContainer/>
                     <NavBar/>
                     <div className={'Container'}>
@@ -43,9 +46,9 @@ const App: React.FC<PropsType> = (props) => {
                         <Route path='/news' render={() => <News/>}/>
                         <Route path='/settings' render={() => <Settings/>}/>
                         <Route path='/users' render={() => <UsersContainer/>}/>
-                        <Route path='/login' render={withSuspense(Login)}/>
                     </div>
-                </div>
+                </div> }/>
+                </Switch>
             </BrowserRouter>
         );
 };

@@ -1,7 +1,7 @@
 import {instance, RegularResponseType} from "./API";
 import {UserType} from "../redux/reducers/users-reducer";
 
-type GetUsersResponseType = {
+export type GetUsersResponseType = {
     items: Array<UserType>
     totalCount: number
     error: string | null

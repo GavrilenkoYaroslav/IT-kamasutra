@@ -1,5 +1,11 @@
-.loginFormError {
-    border : 1px solid red;
-    width : max-content;
-    padding: 5px;
+.container {
+    margin-top: 60px;
+    padding: 30px;
+    border: 1px solid dimgray;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.title {
+   text-align: center;
 }

@@ -4,6 +4,7 @@ import Preloader from "../common/Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 import avatar from '../../Images/scalable-vector-graphics-avatar-learning-icon-customer-login-avatar.jpg';
 import {InitialAuthStateType, ProfileType} from "../../redux/reducers/auth-reducer";
+import {Button} from "antd";
 
 type PropsType = {
     auth: InitialAuthStateType
@@ -28,7 +29,7 @@ const Header: React.FC<PropsType> = (props) => {
                             <img src={props.auth.logoSrc ? props.auth.logoSrc : avatar} alt={''}/>
                         </div>
                         <div>
-                            <button onClick={ logoutClick }>Log out</button>
+                            <Button type={'link'} onClick={ logoutClick }><b>Log out</b></Button>
                         </div>
                         <b>
                             {props.auth.login}
@@ -36,7 +37,7 @@ const Header: React.FC<PropsType> = (props) => {
                     </div>
                     :
                     <NavLink to={'/login'}>
-                        <b>Login</b>
+                        <b>Log In</b>
                     </NavLink>}
             </div>
         </header>

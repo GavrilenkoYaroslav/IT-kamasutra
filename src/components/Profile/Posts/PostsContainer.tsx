@@ -23,8 +23,12 @@ import {reset} from "redux-form";
 // };
 //
 // export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+type PropsType = {
+    isMyProfile: boolean
+    profileFullName: string
+}
 
-const PostsContainer: React.FC = () => {
+const PostsContainer: React.FC<PropsType> = (props) => {
 
     const postData: Array<PostType> = useSelector((state: AppStateType) => state.profilePage.postData);
     const dispatch = useDispatch();
@@ -32,7 +36,8 @@ const PostsContainer: React.FC = () => {
     const resetForm = useCallback(() => dispatch(reset('addPostForm')), [dispatch]);
 
     return (
-        <Posts addPost={addPost} postData={postData} resetForm={resetForm}/>
+        <Posts isMyProfile={props.isMyProfile} addPost={addPost}
+               postData={postData} resetForm={resetForm} profileFullName={props. profileFullName}/>
     )
 };
 

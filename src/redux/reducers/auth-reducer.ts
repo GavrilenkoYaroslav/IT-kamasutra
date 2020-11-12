@@ -1,5 +1,5 @@
 import {resultCodes} from '../../API/API';
-import {FormAction, stopSubmit} from 'redux-form';
+import {FormAction} from 'redux-form';
 import {SetPhotoActionType, SET_PHOTO} from "./profile-reducer";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../redux-store";
@@ -12,6 +12,7 @@ export const SET_USER_AUTH_DATA = 'auth_reducer/SET_USER_AUTH_DATA';
 const TOGGLE_FETCHING_AUTH = 'auth_reducer/TOGGLE_FETCHING_AUTH';
 const SET_LOGO_SRC = 'auth_reducer/SET_LOGO_SRC';
 const SET_CAPTCHA = 'auth_reducer/SET_CAPTCHA';
+const SET_LOGIN_ERROR_MESSAGE = 'auth_reducer/SET_LOGIN_ERROR_MESSAGE';
 
 
 export type InitialAuthStateType = {
@@ -21,6 +22,7 @@ export type InitialAuthStateType = {
     isFetching: boolean,
     logoSrc: string | null,
     captchaUrl: string
+    loginErrorMessage: string
 };
 
 const initialState: InitialAuthStateType = {
@@ -29,7 +31,8 @@ const initialState: InitialAuthStateType = {
     email: null,
     isFetching: false,
     logoSrc: null,
-    captchaUrl: ''
+    captchaUrl: '',
+    loginErrorMessage: ''
 };
 
 const authReducer = (state = initialState, action: ActionsTypes): InitialAuthStateType => {
@@ -45,6 +48,8 @@ const authReducer = (state = initialState, action: ActionsTypes): InitialAuthSta
             return {...state, logoSrc: action.photos.small};
         case SET_CAPTCHA:
             return {...state, captchaUrl: action.url};
+        case SET_LOGIN_ERROR_MESSAGE:
+            return {...state, loginErrorMessage: action.loginErrorMessage}
         default:
             return state;
     }
@@ -52,7 +57,20 @@ const authReducer = (state = initialState, action: ActionsTypes): InitialAuthSta
 };
 
 type ActionsTypes = SetLogoSrcType | ToggleFetchingType |
-                    SetCaptchaUrlType | SetUserAuthDataType | SetPhotoActionType;
+                    SetCaptchaUrlType | SetUserAuthDataType |
+                    SetPhotoActionType | SetLoginErrorMessageType;
+
+type SetLoginErrorMessageType = {
+    type: typeof SET_LOGIN_ERROR_MESSAGE
+    loginErrorMessage: string
+}
+
+export const setLoginErrorMessage = (loginErrorMessage: string): SetLoginErrorMessageType => {
+    return {
+        type: SET_LOGIN_ERROR_MESSAGE,
+        loginErrorMessage
+    }
+};
 
 type SetLogoSrcType = {
     type: typeof SET_LOGO_SRC,
@@ -148,13 +166,14 @@ export const login = (data: LoginRequestType): ThunkType => async dispatch => {
     const res = await AuthAPI.AuthLogin(data);
     if (res.resultCode === resultCodes.Success) {
         dispatch(setCaptchaUrl(''));
+        dispatch(setLoginErrorMessage(''));
         return dispatch(authMe());
     } else {
         if (res.resultCode === resultCodes.CaptchaIsRequired) {
             await dispatch(getCaptcha());
         }
-        const message = res.messages.length > 0 ? res.messages[0] : 'some error';
-        dispatch(stopSubmit('login', {_error: message}));
+        const message = res.messages && res.messages.length > 0 ? res.messages[0] : 'some error';
+        dispatch(setLoginErrorMessage(message));
     }
 };
 

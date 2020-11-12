@@ -5,11 +5,12 @@ import userLogo from '../../../Images/scalable-vector-graphics-avatar-learning-i
 import DescriptionForm, {DescriptionFormDataType} from "./DescriptionForm";
 import Description from "./Description";
 import {ProfileType} from "../../../redux/reducers/auth-reducer";
+import {Button} from "antd";
 
 type PropsType = {
     savePhoto: (file: any) => void
     saveProfile: (profile: DescriptionFormDataType) => void
-    profile: ProfileType | null
+    profile: ProfileType
     isMyProfile: boolean
     status: string
 }
@@ -33,10 +34,6 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
         props.saveProfile(data);
     };
 
-    if (!props.profile) {
-        return <div>Please Log in</div>
-    }
-
 
     return (
         <div className={styles.user}>
@@ -51,7 +48,7 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
 
             <div className={styles.description}>
                 {props.isMyProfile && !editMode &&
-                <button className={styles.editButton} onClick={enterEditMode}>Edit</button>}
+                <Button className={styles.editButton} onClick={enterEditMode}>Edit</Button>}
                 {editMode ? <DescriptionForm onSubmit={onSubmit} initialValues={props.profile}/> :
                     <Description profile={props.profile}/>}
             </div>

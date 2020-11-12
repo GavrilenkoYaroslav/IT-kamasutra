@@ -5,13 +5,13 @@ import {AppStateType} from "../redux-store";
 import {UsersAPI} from "../../API/UsersAPI";
 
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
-const PAGE_CHANGE = 'PAGE_CHANGE';
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
-const TOGGLE_FETCHING = 'TOGGLE_FETCHING';
-const TOGGLE_FOLLOWING_IN_PROGRESS = 'TOGGLE_FOLLOWING_IN_PROGRESS';
+const FOLLOW = 'users_reducer/FOLLOW';
+const UNFOLLOW = 'users_reducer/UNFOLLOW';
+const SET_USERS = 'users_reducer/SET_USERS';
+const PAGE_CHANGE = 'users_reducer/PAGE_CHANGE';
+const SET_TOTAL_USERS_COUNT = 'users_reducer/SET_TOTAL_USERS_COUNT';
+const TOGGLE_FETCHING = 'users_reducer/TOGGLE_FETCHING';
+const TOGGLE_FOLLOWING_IN_PROGRESS = 'users_reducer/TOGGLE_FOLLOWING_IN_PROGRESS';
 
 export type UserType = {
     id: number
@@ -179,11 +179,12 @@ export const getUsers = (currentPage: number, pageSize: number): ThunkType => as
     dispatch(toggleFetching(true));
     try {
         const data = await UsersAPI.getUsers(currentPage, pageSize);
-        dispatch(toggleFetching(false));
         dispatch(setUsers(data.items));
         dispatch(setTotalUsersCount(data.totalCount));
     } catch (e) {
         console.error(e)
+    } finally {
+        dispatch(toggleFetching(false));
     }
 };
 
