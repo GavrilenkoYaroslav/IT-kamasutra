@@ -11,7 +11,7 @@ import Wallpaper from "../Wallpaper/Wallpaper";
 const Login: React.FC = (props) => {
 
     const id = useSelector((state: AppStateType) => state.auth.id);
-    const loginErrorMessage = useSelector((state: AppStateType) => state.auth.loginErrorMessage);
+    const loginError = useSelector((state: AppStateType) => state.auth.loginError);
     const captchaUrl = useSelector((state: AppStateType) => state.auth.captchaUrl);
     const history = useHistory();
     // const dispatch = useDispatch();
@@ -27,14 +27,14 @@ const Login: React.FC = (props) => {
     return (
         <>
             <Wallpaper/>
-            <Button type={'link'} onClick={ () => history.push('/profile')}>Go to profile</Button>
+            <Button type={'link'} onClick={ () => history.push('/users')}>Go to users</Button>
             <Row justify='center' align={'middle'}>
                 <Col span={14}>
                     <div className={styles.container}>
                         <div className={styles.title}>
                 <h1>Log In</h1>
                         </div>
-                <LoginForm captchaUrl={captchaUrl} loginErrorMessage={loginErrorMessage}/>
+                <LoginForm captchaUrl={captchaUrl} loginError={loginError}/>
                     </div>
                 </Col>
             </Row>

@@ -29,7 +29,7 @@ const initialState = {
     ] as Array<PostType>,
     profile: null as ProfileType|null,
     status: '',
-    isFetching: false,
+    isProfileFetching: false,
 };
 
 const profileReducer = (state = initialState, action: ActionsTypes): InitialProfileState => {
@@ -45,7 +45,7 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialProf
             return {...state, postData: [newPost, ...state.postData]};
         }
         case TOGGLE_FETCHING: {
-            return {...state, isFetching: action.isFetching};
+            return {...state, isProfileFetching: action.isProfileFetching};
         }
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
@@ -70,13 +70,13 @@ type ActionsTypes = ToggleFetchingType | SetStatusActionType | SetUserProfileAct
 
 type ToggleFetchingType = {
     type: typeof TOGGLE_FETCHING
-    isFetching: boolean
+    isProfileFetching: boolean
 }
 
-export const toggleFetching = (isFetching: boolean): ToggleFetchingType => {
+export const toggleFetching = (isProfileFetching: boolean): ToggleFetchingType => {
     return {
         type: TOGGLE_FETCHING,
-        isFetching
+        isProfileFetching: isProfileFetching
     }
 };
 

@@ -22,7 +22,7 @@ export type InitialAuthStateType = {
     isFetching: boolean,
     logoSrc: string | null,
     captchaUrl: string
-    loginErrorMessage: string
+    loginError: loginErrorType
 };
 
 const initialState: InitialAuthStateType = {
@@ -32,7 +32,7 @@ const initialState: InitialAuthStateType = {
     isFetching: false,
     logoSrc: null,
     captchaUrl: '',
-    loginErrorMessage: ''
+    loginError: {type:'error', message: ''}
 };
 
 const authReducer = (state = initialState, action: ActionsTypes): InitialAuthStateType => {
@@ -49,7 +49,7 @@ const authReducer = (state = initialState, action: ActionsTypes): InitialAuthSta
         case SET_CAPTCHA:
             return {...state, captchaUrl: action.url};
         case SET_LOGIN_ERROR_MESSAGE:
-            return {...state, loginErrorMessage: action.loginErrorMessage}
+            return {...state, loginError: action.loginError};
         default:
             return state;
     }
@@ -62,13 +62,18 @@ type ActionsTypes = SetLogoSrcType | ToggleFetchingType |
 
 type SetLoginErrorMessageType = {
     type: typeof SET_LOGIN_ERROR_MESSAGE
-    loginErrorMessage: string
+    loginError: loginErrorType
+}
+
+export type loginErrorType = {
+    type: 'error'
+    message: string
 }
 
 export const setLoginErrorMessage = (loginErrorMessage: string): SetLoginErrorMessageType => {
     return {
         type: SET_LOGIN_ERROR_MESSAGE,
-        loginErrorMessage
+        loginError: {type: 'error', message: loginErrorMessage}
     }
 };
 
@@ -89,7 +94,7 @@ type ToggleFetchingType = {
 export const toggleFetching = (isFetching: boolean): ToggleFetchingType => {
     return {
         type: TOGGLE_FETCHING_AUTH,
-        isFetching,
+        isFetching: isFetching,
     };
 };
 

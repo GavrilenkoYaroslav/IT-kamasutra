@@ -107,7 +107,7 @@ type ToggleFetchingType = {
 export const toggleFetching = (isFetching: boolean): ToggleFetchingType => {
     return {
         type: TOGGLE_FETCHING,
-        isFetching
+        isFetching: isFetching
     }
 };
 

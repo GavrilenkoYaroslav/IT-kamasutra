@@ -20,6 +20,7 @@ import Preloader from "../common/Preloader/Preloader";
 type MapstatePropsType = {
     profile: ProfileType | null
     status: string
+    isProfileFetching: boolean
     isFetching: boolean
     id: number | null
 }
@@ -52,11 +53,10 @@ const ProfileContainer: React.FC<PropsType> = (props) => {
     if (!props.profile) {
         return (
             <>
-                {props.isFetching ? <Preloader/> :
-                    <>
-                        <Wallpaper/>
-                        < div style={{margin: '10px'}}>Please <NavLink to='/login'><b>Log In</b></NavLink></div>
-                    </>}
+                <Wallpaper/>
+                {props.isProfileFetching || props.isFetching ? <Preloader/> :
+                    < div style={{margin: '10px'}}>Please <NavLink to='/login'><b>Log In</b></NavLink></div>
+                }
             </>
         );
     }
@@ -65,7 +65,7 @@ const ProfileContainer: React.FC<PropsType> = (props) => {
         <>
             <Wallpaper/>
             <Profile profile={props.profile} status={props.status}
-                     isFetching={props.isFetching} isMyProfile={!props.match.params.userId}
+                     isFetching={props.isProfileFetching} isMyProfile={!props.match.params.userId}
                      savePhoto={props.savePhoto}
                      saveProfile={props.saveProfile}/>
         </>
@@ -78,7 +78,8 @@ let mapStateToProps = (state: AppStateType): MapstatePropsType => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
-        isFetching: state.profilePage.isFetching,
+        isProfileFetching: state.profilePage.isProfileFetching,
+        isFetching: state.auth.isFetching,
         id: state.auth.id
     }
 };
