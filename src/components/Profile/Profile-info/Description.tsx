@@ -25,7 +25,7 @@ const Description: React.FC<PropsType> = (props) => {
             </div>
             <div>
                 <hr/>
-                <b>Contacts:</b>
+                <b>CONTACTS:</b>
             </div>
             <div className={styles.contacts}>
                 {Object.keys(props.profile.contacts).map(key => <Contacts title={key}

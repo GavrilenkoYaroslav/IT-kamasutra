@@ -1,24 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import SideBar from "./sideBar";
 import {AppStateType} from "../../../redux/redux-store";
-import {DialogType} from "../../../redux/reducers/dialogs-reducer";
+import {UserType} from "../../../redux/reducers/users-reducer";
+
 
 type PropsType = MapStatePropsType;
 type MapStatePropsType = {
-    DialogsData: Array<DialogType>
+    userFriends: Array<UserType>
 }
 
 const SideBarContainer: React.FC<PropsType> = (props) => {
 
     return (
-        <SideBar someUsers={props.DialogsData}/>
+        <SideBar userFriends={props.userFriends}/>
     );
 };
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
    return {
-       DialogsData : state.dialogsPage.DialogsData
+       userFriends : state.profilePage.userFriends
    }
 };
 

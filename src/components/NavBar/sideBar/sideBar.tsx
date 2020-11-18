@@ -1,21 +1,23 @@
 import React from 'react';
 import styles from './sideBar.module.css';
 import Friend from './friend/friend';
-import {DialogType} from "../../../redux/reducers/dialogs-reducer";
+import {UserType} from "../../../redux/reducers/users-reducer";
 
 type PropsType = {
-    someUsers: Array<DialogType>
+    userFriends: Array<UserType>
 }
 
 const SideBar: React.FC<PropsType> = (props) => {
 
-    return(
+    return(<>
+        {!!props.userFriends.length &&
         <div className={styles.sideBar}>
             <div className={styles.title}>Friends:</div>
             <div className={styles.friendsList}>
-            {props.someUsers.map(friend => <Friend key={friend.id} name={friend.name} logoSrc={friend.logoSrc}/>)}
+            {props.userFriends.map(friend => <Friend key={friend.id} id={friend.id} name={friend.name} logoSrc={friend.photos.small}/>)}
             </div>
-        </div>
+        </div>}
+        </>
     );
 };
 

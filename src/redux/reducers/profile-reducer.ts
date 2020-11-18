@@ -6,6 +6,7 @@ import {AppStateType} from "../redux-store";
 import {DescriptionFormDataType} from "../../components/Profile/Profile-info/DescriptionForm";
 import {ProfileAPI} from "../../API/ProfileAPI";
 import {AuthAPI} from "../../API/AuthAPI";
+import {UserType} from "./users-reducer";
 
 export const SET_PHOTO = 'profile_reducer/SET_PHOTO';
 const CLEAR_PROFILE = 'profile_reducer/CLEAR_PROFILE';
@@ -13,6 +14,7 @@ const ADD_POST = 'profile_reducer/ADD_POST';
 const SET_USER_PROFILE = 'profile_reducer/SET_USER_PROFILE';
 const SET_STATUS = 'profile_reducer/SET_STATUS';
 const TOGGLE_FETCHING = 'profile_reducer/TOGGLE_FETCHING';
+const SET_USER_FRIENDS = 'profile_reducer/SET_USER_FRIENDS';
 
 export type PostType = {
     id: number
@@ -28,6 +30,7 @@ const initialState = {
         {id: 2, post: 'Working hard.', likesCount: 15}
     ] as Array<PostType>,
     profile: null as ProfileType|null,
+    userFriends: [] as Array<UserType>,
     status: '',
     isProfileFetching: false,
 };
@@ -59,6 +62,9 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialProf
         case SET_PHOTO: {
             return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
         }
+        case SET_USER_FRIENDS: {
+            return {...state, userFriends: action.friends}
+        }
         default:
             return state;
     }
@@ -66,7 +72,19 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialProf
 };
 
 type ActionsTypes = ToggleFetchingType | SetStatusActionType | SetUserProfileActionType |
-    AddPostActionType | ClearProfileActionType | SetPhotoActionType;
+    AddPostActionType | ClearProfileActionType | SetPhotoActionType | SetUserFriends;
+
+type SetUserFriends = {
+    type: typeof SET_USER_FRIENDS
+    friends: Array<UserType>
+}
+
+export const setUserFriends = (friends: Array<UserType>):SetUserFriends => {
+    return {
+        type: SET_USER_FRIENDS,
+        friends
+    }
+};
 
 type ToggleFetchingType = {
     type: typeof TOGGLE_FETCHING

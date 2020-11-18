@@ -1,17 +1,18 @@
 import React from 'react';
 import styles from './Post.module.css';
+import userLogo from '../../../../Images/scalable-vector-graphics-avatar-learning-icon-customer-login-avatar.jpg'
 
 type PropsType = {
     message: string
     likesCount: number
+    avatar: string|null
 }
 
 const Post: React.FC<PropsType> = (props) => {
     return (
         <div className={styles.Post}>
             <div className={styles.avatar}>
-                <img
-                    src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQqc0qwLkD2-SHZlWMr7z7lRvzHQfxaXk_TLw&usqp=CAU' alt={''}/>
+                <img src={props.avatar || userLogo} alt={''}/>
             </div>
             <div className={styles.Message}>
                 {props.message}

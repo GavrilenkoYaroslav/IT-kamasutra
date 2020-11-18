@@ -1,11 +1,12 @@
 import {resultCodes} from '../../API/API';
 import {FormAction} from 'redux-form';
-import {SetPhotoActionType, SET_PHOTO} from "./profile-reducer";
+import {SetPhotoActionType, SET_PHOTO, setUserFriends} from "./profile-reducer";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../redux-store";
 import {ProfileAPI} from "../../API/ProfileAPI";
 import {AuthAPI, LoginRequestType} from "../../API/AuthAPI";
 import {SequrityAPI} from "../../API/SequrityAPI";
+import {UsersAPI} from "../../API/UsersAPI";
 
 
 export const SET_USER_AUTH_DATA = 'auth_reducer/SET_USER_AUTH_DATA';
@@ -159,6 +160,8 @@ export const authMe = (): ThunkType => async dispatch => {
 
         const profile = id && await ProfileAPI.getProfile(id);
         profile && dispatch(setLogoSrc(profile.photos.small));
+        const friends = await UsersAPI.getUsers(1,5,true);
+        friends && dispatch(setUserFriends(friends.items));
     } catch (e) {
         console.error(e);
     } finally {
@@ -185,6 +188,7 @@ export const login = (data: LoginRequestType): ThunkType => async dispatch => {
 export const logout = (): ThunkType => async dispatch => {
     await AuthAPI.AuthLogout();
     dispatch(setUserAuthData(null, null, null));
+    dispatch(setUserFriends([]));
 };
 
 

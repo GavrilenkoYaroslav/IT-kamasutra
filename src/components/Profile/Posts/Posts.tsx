@@ -10,6 +10,7 @@ type PropsType = {
     resetForm: () => void
     isMyProfile: boolean
     profileFullName: string
+    avatar: string|null
 }
 
 const Posts: React.FC<PropsType> = (props) => {
@@ -19,7 +20,7 @@ const Posts: React.FC<PropsType> = (props) => {
         props.resetForm();
     };
 
-    const postElements = props.postData.map(post => <Post message={post.post} likesCount={post.likesCount}
+    const postElements = props.postData.map(post => <Post avatar={props.avatar} message={post.post} likesCount={post.likesCount}
                                                           key={post.id}/>);
 
     return (

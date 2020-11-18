@@ -1,17 +1,16 @@
 .sideBar {
+    text-align: center;
     margin-top: 50px;
-    background-color: indianred;
-    border-radius: 10px 10px 10px 10px;
-    -moz-border-radius: 10px 10px 10px 10px;
-    -webkit-border-radius: 10px 10px 10px 10px;
+    background-color: ghostwhite;
+    border: 1px solid #ccc;
+    border-radius: 10px;
     padding: 5px;
 }
 
 .title {
-    margin-left: 30px;
     font-weight: bold;
 }
 
 .friendsList {
-    margin-left: 30px;
+
 }

@@ -1,9 +1,10 @@
 .img {
-    margin: 0 30% 0 30%;
     height: 200px;
 }
 
 .box {
+    width: 100%;
+    text-align: center;
     background-color: whitesmoke;
     border-radius: 10px 10px 0px 0px;
     -moz-border-radius: 10px 10px 0px 0px;

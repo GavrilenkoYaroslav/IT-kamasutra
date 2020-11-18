@@ -17,6 +17,7 @@ type MapStatePropsType = {
     followingInProgress: Array<number>
     currentPage: number
     isFetching: boolean
+    currentAuthUserId: null | number
 }
 
 type MapDispatchPropsType = {
@@ -50,7 +51,8 @@ const UsersContainer: React.FC<PropsType> = (props) => {
                        unfollow={props.unfollow}
                        currentPage={props.currentPage}
                        onPageChange={onPageChange}
-                       followingInProgress={props.followingInProgress} />}
+                       followingInProgress={props.followingInProgress}
+                       currentAuthUserId={props.currentAuthUserId}/>}
         </>
     );
 };
@@ -62,7 +64,8 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        currentAuthUserId: state.auth.id
     }
 
 };

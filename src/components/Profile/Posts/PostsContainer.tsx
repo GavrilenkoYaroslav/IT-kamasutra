@@ -31,12 +31,13 @@ type PropsType = {
 const PostsContainer: React.FC<PropsType> = (props) => {
 
     const postData: Array<PostType> = useSelector((state: AppStateType) => state.profilePage.postData);
+    const avatar = useSelector((state: AppStateType) => state.profilePage.profile && state.profilePage.profile.photos.small);
     const dispatch = useDispatch();
     const addPost = useCallback((post) => dispatch(addPostActionCreator(post)), [dispatch]);
     const resetForm = useCallback(() => dispatch(reset('addPostForm')), [dispatch]);
 
     return (
-        <Posts isMyProfile={props.isMyProfile} addPost={addPost}
+        <Posts avatar={avatar} isMyProfile={props.isMyProfile} addPost={addPost}
                postData={postData} resetForm={resetForm} profileFullName={props. profileFullName}/>
     )
 };

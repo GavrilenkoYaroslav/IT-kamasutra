@@ -12,6 +12,7 @@ type PropsType = {
     followingInProgress: Array<number>
     currentPage: number
     onPageChange: (page: number) => void
+    currentAuthUserId: null | number
 }
 
 const Users: React.FC<PropsType> = (props) => {
@@ -33,7 +34,8 @@ const Users: React.FC<PropsType> = (props) => {
                           followed={user.followed}
                           follow={props.follow}
                           unfollow={props.unfollow}
-                          followingInProgress={props.followingInProgress} />))}
+                          followingInProgress={props.followingInProgress}
+                          currentAuthUserId={props.currentAuthUserId} />))}
             </div>
             <div className={styles.pages}>
                 {pages.map(p => {
