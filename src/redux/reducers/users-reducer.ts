@@ -8,7 +8,6 @@ import {UsersAPI} from "../../API/UsersAPI";
 const FOLLOW = 'users_reducer/FOLLOW';
 const UNFOLLOW = 'users_reducer/UNFOLLOW';
 const SET_USERS = 'users_reducer/SET_USERS';
-const PAGE_CHANGE = 'users_reducer/PAGE_CHANGE';
 const SET_TOTAL_USERS_COUNT = 'users_reducer/SET_TOTAL_USERS_COUNT';
 const TOGGLE_FETCHING = 'users_reducer/TOGGLE_FETCHING';
 const TOGGLE_FOLLOWING_IN_PROGRESS = 'users_reducer/TOGGLE_FOLLOWING_IN_PROGRESS';
@@ -23,18 +22,14 @@ export type UserType = {
 
 type InitialUsersState = {
     users: Array<UserType>
-    pageSize: number
     totalUsersCount: number
-    currentPage: number
     isFetching: boolean
     followingInProgress: Array<number>
 }
 
 const initialState: InitialUsersState = {
     users: [],
-    pageSize: 16,
     totalUsersCount: 0,
-    currentPage: 1,
     isFetching: false,
     followingInProgress: []
 };
@@ -63,8 +58,6 @@ const usersReducer = (state = initialState, action: ActionsTypes) => {
             };
         case SET_USERS:
             return {...state, users: [...action.users]};
-        case PAGE_CHANGE:
-            return {...state, currentPage: action.page};
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalUsersCount: action.usersCount};
         case TOGGLE_FETCHING:
@@ -82,7 +75,7 @@ const usersReducer = (state = initialState, action: ActionsTypes) => {
 };
 
 type ActionsTypes = ToggleFollowingInProgressType | ToggleFetchingType |
-    SetTotalUsersCountType | ChangePageType | FollowActionType |
+    SetTotalUsersCountType | FollowActionType |
     UnfollowActionType | SetUsersType;
 
 type ToggleFollowingInProgressType = {
@@ -123,17 +116,6 @@ export const setTotalUsersCount = (usersCount: number): SetTotalUsersCountType =
     }
 };
 
-type ChangePageType = {
-    type: typeof PAGE_CHANGE
-    page: number
-}
-
-export const changePage = (page: number): ChangePageType => {
-    return {
-        type: PAGE_CHANGE,
-        page
-    }
-};
 
 type FollowActionType = {
     type: typeof FOLLOW
@@ -175,10 +157,10 @@ export const setUsers = (users: Array<UserType>): SetUsersType => {
 
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>;
 
-export const getUsers = (currentPage: number, pageSize: number): ThunkType => async dispatch => {
+export const getUsers = (currentPage: number, pageSize: number,friend?: boolean, term?: string): ThunkType => async dispatch => {
     dispatch(toggleFetching(true));
     try {
-        const data = await UsersAPI.getUsers(currentPage, pageSize);
+        const data = await UsersAPI.getUsers(currentPage, pageSize, friend, term);
         dispatch(setUsers(data.items));
         dispatch(setTotalUsersCount(data.totalCount));
     } catch (e) {
@@ -187,20 +169,6 @@ export const getUsers = (currentPage: number, pageSize: number): ThunkType => as
         dispatch(toggleFetching(false));
     }
 };
-
-export const pageChange = (p: number, pageSize: number): ThunkType => async dispatch => {
-    dispatch(toggleFetching(true));
-    dispatch(changePage(p));
-    try {
-        const data = await UsersAPI.getUsers(p, pageSize);
-        dispatch(setUsers(data.items));
-    } catch (e) {
-        console.error(e)
-    } finally {
-        dispatch(toggleFetching(false));
-    }
-};
-
 
 export const follow = (id: number): ThunkType => async dispatch => {
     dispatch(toggleFollowingInProgress(true, id));
