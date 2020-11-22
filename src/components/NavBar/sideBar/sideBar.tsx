@@ -17,7 +17,6 @@ const SideBar: React.FC<PropsType> = (props) => {
 
         const interval = setInterval(()=> {
             setShuffled([...props.userFriends].sort(() => 0.5 - Math.random()));
-            console.log('change')
         }, 20000);
 
         return () => clearInterval(interval)
@@ -32,7 +31,7 @@ const SideBar: React.FC<PropsType> = (props) => {
             <div className={styles.sideBar}>
                 <div className={styles.title}>Friends:</div>
                 <div className={styles.friendsList}>
-                    {shuffled.slice(0,5).map(friend => <Friend key={friend.id} id={friend.id} name={friend.name}
+                    {shuffled.slice(0,5).map(friend => <Friend key={Math.random()} id={friend.id} name={friend.name}
                                                          logoSrc={friend.photos.small}/>)}
                 </div>
             </div>}
