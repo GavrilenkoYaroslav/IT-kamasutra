@@ -10,13 +10,12 @@ type PropsType = {
     totalUsersCount: number
     pageSize: number
     users: Array<UserType>
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
+    follow: (user: UserType) => void
+    unfollow: (user: UserType) => void
     followingInProgress: Array<number>
     currentPage: number
     onPageChange: (page: number) => void
     currentAuthUserId: null | number
-    getUsers: (currentPage: number, pageSize: number, friend?: boolean, term?: string) => void
     setTerm: (term: string) => void
     setCurrentPage: (page: number) => void
 }
@@ -47,7 +46,7 @@ const Users: React.FC<PropsType> = (props) => {
     return (
         <div>
             <div className={styles.searchInputContainer}>
-                <Input placeholder='search users here...' onChange={(e) => setInputValue(e.target.value)}/>
+                <Input placeholder='search users here...' value={ inputValue } onChange={(e) => setInputValue(e.target.value)}/>
             </div>
             <div className={styles.searchButtons}>
                 <Button type='primary' onClick={onSearch}>Search</Button> <Button type='primary' onClick={onSearchAll}>Show All</Button>
@@ -55,12 +54,10 @@ const Users: React.FC<PropsType> = (props) => {
 
             <div className={styles.usersContainer}>
                 {props.users.map(user => (
-                    <User key={user.id} id={user.id}
-                          logoSrc={user.photos.small}
-                          name={user.name}
-                          followed={user.followed}
+                    <User key={user.id}
                           follow={props.follow}
                           unfollow={props.unfollow}
+                          user={user}
                           followingInProgress={props.followingInProgress}
                           currentAuthUserId={props.currentAuthUserId}/>))}
             </div>

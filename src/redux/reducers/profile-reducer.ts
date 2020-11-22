@@ -6,7 +6,7 @@ import {AppStateType} from "../redux-store";
 import {DescriptionFormDataType} from "../../components/Profile/Profile-info/DescriptionForm";
 import {ProfileAPI} from "../../API/ProfileAPI";
 import {AuthAPI} from "../../API/AuthAPI";
-import {UserType} from "./users-reducer";
+import {FOLLOW, FollowActionType, UNFOLLOW, UnfollowActionType, UserType} from "./users-reducer";
 
 export const SET_PHOTO = 'profile_reducer/SET_PHOTO';
 const CLEAR_PROFILE = 'profile_reducer/CLEAR_PROFILE';
@@ -47,6 +47,14 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialProf
             };
             return {...state, postData: [newPost, ...state.postData]};
         }
+        case FOLLOW: {
+            return {...state, userFriends: [...state.userFriends, action.user]}
+        }
+        case UNFOLLOW: {
+            const index = state.userFriends.findIndex(user => user.id === action.user.id);
+            if ( index === -1 ) {return state}
+            return {...state, userFriends: [...state.userFriends.slice(0,index), ...state.userFriends.slice(index+1)]}
+        }
         case TOGGLE_FETCHING: {
             return {...state, isProfileFetching: action.isProfileFetching};
         }
@@ -72,7 +80,8 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialProf
 };
 
 type ActionsTypes = ToggleFetchingType | SetStatusActionType | SetUserProfileActionType |
-    AddPostActionType | ClearProfileActionType | SetPhotoActionType | SetUserFriends;
+    AddPostActionType | ClearProfileActionType | SetPhotoActionType | SetUserFriends |
+    FollowActionType | UnfollowActionType;
 
 type SetUserFriends = {
     type: typeof SET_USER_FRIENDS

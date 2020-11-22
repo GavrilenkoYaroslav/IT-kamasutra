@@ -19,8 +19,8 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
+    follow: (user: UserType) => void
+    unfollow: (user: UserType) => void
     setTotalUsersCount: (usersCount: number) => void
     getUsers: (currentPage: number, pageSize: number,friend?:boolean, term?:string) => void
 }
@@ -58,7 +58,6 @@ const UsersContainer: React.FC<PropsType> = (props) => {
                        onPageChange={onPageChange}
                        followingInProgress={props.followingInProgress}
                        currentAuthUserId={props.currentAuthUserId}
-                       getUsers={props.getUsers}
                        setTerm={setTermCallback}
                        setCurrentPage={setCurrentPageCallback}/>}
         </>
