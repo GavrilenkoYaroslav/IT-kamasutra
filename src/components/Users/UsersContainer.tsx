@@ -9,6 +9,9 @@ import {
 import Wallpaper from "../Wallpaper/Wallpaper";
 import Preloader from "../common/Preloader/Preloader";
 import {AppStateType} from "../../redux/redux-store";
+import {SearchUsers} from "./SearchUsers/SearchUsers";
+import styles from './users.module.css'
+import {Pagination} from "antd";
 
 type MapStatePropsType = {
     totalUsersCount: number
@@ -22,7 +25,7 @@ type MapDispatchPropsType = {
     follow: (user: UserType) => void
     unfollow: (user: UserType) => void
     setTotalUsersCount: (usersCount: number) => void
-    getUsers: (currentPage: number, pageSize: number,friend?:boolean, term?:string) => void
+    getUsers: (currentPage: number, pageSize: number, friend?: boolean, term?: string) => void
 }
 
 type PropsType = MapDispatchPropsType & MapStatePropsType;
@@ -30,36 +33,46 @@ type PropsType = MapDispatchPropsType & MapStatePropsType;
 const UsersContainer: React.FC<PropsType> = (props) => {
 
     const [term, setTerm] = useState('');
-    const [pageSize , setPageSize] = useState(16);
+    const [defaultPageSize, setDefaultPageSize] = useState(16);
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        props.getUsers(currentPage, pageSize, false, term);
-    }, [currentPage, term]);
+        props.getUsers(currentPage, defaultPageSize, false, term);
+    }, [currentPage, defaultPageSize, term]);
 
-    const onPageChange = async (p: number) => {
-        await setCurrentPage(p);
-        props.getUsers(p, pageSize, false, term);
+    const onPageChange = (page: number, pageSize?: number) => {
+        page !== 0 && setCurrentPage(page);
+        pageSize && setDefaultPageSize(pageSize);
+        window.scrollTo({top: 0, behavior: 'smooth'});
     };
 
-    const setTermCallback = useCallback((value)=> setTerm(value), [setTerm]);
-    const setCurrentPageCallback = useCallback((value)=> setCurrentPage(value),[setCurrentPage]);
+    const onSizeChange = (currentSize: number, size: number) => {
+        setDefaultPageSize(size);
+    };
+
+    const setTermCallback = useCallback((value) => setTerm(value), [setTerm]);
+    const setCurrentPageCallback = useCallback((value) => setCurrentPage(value), [setCurrentPage]);
 
     return (
         <>
             <Wallpaper/>
-            {props.isFetching ? <Preloader/> :
-                <Users totalUsersCount={props.totalUsersCount}
-                       pageSize={pageSize}
-                       users={props.users}
-                       follow={props.follow}
-                       unfollow={props.unfollow}
-                       currentPage={currentPage}
-                       onPageChange={onPageChange}
-                       followingInProgress={props.followingInProgress}
-                       currentAuthUserId={props.currentAuthUserId}
-                       setTerm={setTermCallback}
-                       setCurrentPage={setCurrentPageCallback}/>}
+            <SearchUsers setTerm={setTermCallback} setCurrentPage={setCurrentPageCallback}/>
+
+            {props.isFetching && <Preloader/>}
+
+            <Users users={props.users}
+                   follow={props.follow}
+                   unfollow={props.unfollow}
+                   followingInProgress={props.followingInProgress}
+                   currentAuthUserId={props.currentAuthUserId}/>
+            <div className={styles.paginator}>
+                <Pagination size="small" total={props.totalUsersCount}
+                            current={currentPage}
+                            onChange={onPageChange} pageSizeOptions={['16', '32', '64']}
+                            defaultPageSize={16} defaultCurrent={currentPage}
+                            onShowSizeChange={onSizeChange}
+                            hideOnSinglePage showSizeChanger showQuickJumper/>
+            </div>
         </>
     );
 };
@@ -82,4 +95,5 @@ const mapDispatchToProps: MapDispatchPropsType = {
     getUsers
 };
 
-export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps,
+    mapDispatchToProps)(UsersContainer);

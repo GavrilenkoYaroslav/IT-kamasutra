@@ -8,17 +8,12 @@ import {Button, Col, Row} from "antd";
 import Wallpaper from "../Wallpaper/Wallpaper";
 
 
-const Login: React.FC = (props) => {
+const Login: React.FC = () => {
 
     const id = useSelector((state: AppStateType) => state.auth.id);
     const loginError = useSelector((state: AppStateType) => state.auth.loginError);
     const captchaUrl = useSelector((state: AppStateType) => state.auth.captchaUrl);
     const history = useHistory();
-    // const dispatch = useDispatch();
-    //
-    // const onSubmit = (formData: LoginFormDataType) => {
-    //    dispatch(login(formData));
-    // };
 
     if (id) {
         return <Redirect to='/profile'/>
