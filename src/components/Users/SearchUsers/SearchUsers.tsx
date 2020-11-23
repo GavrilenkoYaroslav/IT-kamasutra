@@ -1,15 +1,20 @@
 import {Button, Input} from "antd";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from './SearchUsers.module.css'
 
 type PropsType = {
     setTerm: (term: string) => void
     setCurrentPage: (page: number) => void
+    term: string
 }
 
 export const SearchUsers: React.FC<PropsType> = (props) => {
 
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState(props.term);
+
+    useEffect(() => {
+        setInputValue(props.term);
+    },[props.term]);
 
     const onSearch = () => {
         props.setTerm(inputValue);
