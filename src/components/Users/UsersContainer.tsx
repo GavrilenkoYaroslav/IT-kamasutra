@@ -6,7 +6,6 @@ import {
     unfollow, UserType
 } from "../../redux/reducers/users-reducer";
 import Wallpaper from "../Wallpaper/Wallpaper";
-import Preloader from "../common/Preloader/Preloader";
 import {AppStateType} from "../../redux/redux-store";
 import {SearchUsers} from "./SearchUsers/SearchUsers";
 import styles from './users.module.css'
@@ -84,9 +83,7 @@ const UsersContainer: React.FC<PropsType> = (props) => {
     return (
         <>
             <Wallpaper/>
-            <SearchUsers term={term} setTerm={setTermCallback} setCurrentPage={setCurrentPageCallback}/>
-
-            {props.isFetching && <Preloader/>}
+            <SearchUsers isFetching={props.isFetching} currentPage={currentPage} term={term} setTerm={setTermCallback} setCurrentPage={setCurrentPageCallback}/>
 
             <Users users={props.users}
                    follow={props.follow}
