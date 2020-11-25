@@ -53,9 +53,8 @@ const ProfileContainer: React.FC<PropsType> = (props) => {
     if (!props.profile) {
         return (
             <>
-                <Wallpaper/>
                 {props.isProfileFetching || props.isFetching ? <Preloader/> :
-                    < div style={{margin: '10px'}}>Please <NavLink to='/login'><b>Log In</b></NavLink></div>
+                    < div style={{margin: '10px', backgroundColor: 'white', width: 'max-content'}}>Please <NavLink to='/login'><b>Log In</b></NavLink></div>
                 }
             </>
         );

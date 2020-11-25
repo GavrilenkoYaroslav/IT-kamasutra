@@ -15,7 +15,6 @@ type PropsType = {
 const Users: React.FC<PropsType> = (props) => {
 
     return (
-        <div>
 
             <div className={styles.usersContainer}>
                 {props.users.map(user => (
@@ -27,7 +26,6 @@ const Users: React.FC<PropsType> = (props) => {
                           currentAuthUserId={props.currentAuthUserId}/>))}
             </div>
 
-        </div>
     );
 };
 

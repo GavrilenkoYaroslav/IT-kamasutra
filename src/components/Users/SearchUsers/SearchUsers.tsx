@@ -4,27 +4,24 @@ import styles from './SearchUsers.module.css'
 import useDebouncedCallback from "use-debounce/lib/useDebouncedCallback";
 import {Spin} from 'antd';
 import {LoadingOutlined} from '@ant-design/icons';
-
+import {SearchOptionsType} from "../UsersContainer";
 
 type PropsType = {
-    setTerm: (term: string) => void
-    setCurrentPage: (page: number) => void
-    term: string
-    currentPage: number
+    setSearchOptions: (value: SearchOptionsType) => void
+    searchOptions: SearchOptionsType
     isFetching: boolean
 }
 
 export const SearchUsers: React.FC<PropsType> = (props) => {
 
-    const [inputValue, setInputValue] = useState(props.term);
+    const [inputValue, setInputValue] = useState(props.searchOptions.term);
 
     useEffect(() => {
-        setInputValue(props.term);
-    }, [props.term]);
+        setInputValue(props.searchOptions.term);
+    }, [props.searchOptions.term]);
 
     const onSearch = () => {
-        props.setCurrentPage(1);
-        props.setTerm(inputValue);
+        props.setSearchOptions({...props.searchOptions, term: inputValue, page: 1});
     };
 
     const debounced = useDebouncedCallback(onSearch, 1000);
@@ -35,16 +32,14 @@ export const SearchUsers: React.FC<PropsType> = (props) => {
     };
 
     const onSearchAll = () => {
-        props.setTerm('');
-        setInputValue('');
-        props.setCurrentPage(1);
+        props.setSearchOptions({...props.searchOptions, term: '', page: 1});
     };
 
-    const disabled = props.currentPage === 1 && !inputValue;
+    const disabled = props.searchOptions.page === 1 && !inputValue;
 
     return (
         <>
-            <div className={styles.searchInputContainer}>
+            <div className={styles.searchInputContainer} >
 
                 {props.isFetching && <div className={styles.spiner}>
                     <Spin indicator={<LoadingOutlined style={{fontSize: 24}} spin/>}/>

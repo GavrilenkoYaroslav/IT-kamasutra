@@ -5,7 +5,6 @@ import {AppStateType} from "../../redux/redux-store";
 import LoginForm from "./LoginForm";
 import styles from "./Login.module.css";
 import {Button, Col, Row} from "antd";
-import Wallpaper from "../Wallpaper/Wallpaper";
 
 
 const Login: React.FC = () => {
@@ -21,15 +20,16 @@ const Login: React.FC = () => {
 
     return (
         <>
-            <Wallpaper/>
-            <Button type={'link'} onClick={ () => history.push('/users')}>Go to users</Button>
-            <Row justify='center' align={'middle'}>
-                <Col span={14}>
+            <Row justify='center' align={'middle'} style={{height: '100vh'}}>
+                <Col span={10}>
                     <div className={styles.container}>
                         <div className={styles.title}>
                 <h1>Log In</h1>
                         </div>
                 <LoginForm captchaUrl={captchaUrl} loginError={loginError}/>
+                    </div>
+                    <div className={styles.goToUsersButton}>
+                        <Button type={'link'} onClick={ () => history.push('/users')}><b>Go to users</b></Button>
                     </div>
                 </Col>
             </Row>

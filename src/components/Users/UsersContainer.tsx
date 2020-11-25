@@ -5,7 +5,6 @@ import {
     follow, getUsers,
     unfollow, UserType
 } from "../../redux/reducers/users-reducer";
-import Wallpaper from "../Wallpaper/Wallpaper";
 import {AppStateType} from "../../redux/redux-store";
 import {SearchUsers} from "./SearchUsers/SearchUsers";
 import styles from './users.module.css'
@@ -29,73 +28,76 @@ type MapDispatchPropsType = {
 
 type QueryType = {
     term?: string
-    page?: string
-    pageSize?: string
+    page?: string | number
+    pageSize?: string | number
     friend?: string
+}
+
+export type SearchOptionsType = {
+    term: string
+    pageSize: number
+    page: number
 }
 
 type PropsType = MapDispatchPropsType & MapStatePropsType;
 
 const UsersContainer: React.FC<PropsType> = (props) => {
 
-    const [term, setTerm] = useState('');
-    const [defaultPageSize, setDefaultPageSize] = useState(16);
-    const [currentPage, setCurrentPage] = useState(1);
-
+    const [searchOptions, setSearchOptions] = useState({term:'', pageSize: 16, page: 1});
     const history = useHistory();
 
     useEffect(()=> {
         const parsedQuery: QueryType = queryString.parse(history.location.search.substr(1));
 
-        if (parsedQuery.term && parsedQuery.term.length) setTerm(parsedQuery.term);
-        if (parsedQuery.page) setCurrentPage(Number(parsedQuery.page));
-        if (parsedQuery.pageSize) setDefaultPageSize(Number(parsedQuery.pageSize));
+        if (parsedQuery.page) parsedQuery.page = +parsedQuery.page;
+        if (parsedQuery.pageSize) parsedQuery.pageSize = +parsedQuery.pageSize;
+
+        setSearchOptions({...searchOptions, ...parsedQuery as SearchOptionsType});
 
     },[]);
 
     useEffect(() => {
         const querySearch: QueryType = {};
-        if (!!term) querySearch.term = term;
-        if (currentPage !== 1) querySearch.page = String(currentPage);
-        if (defaultPageSize !== 16) querySearch.pageSize = String(defaultPageSize);
+        if (!!searchOptions.term) {querySearch.term = searchOptions.term}
+        if (searchOptions.page !== 1) querySearch.page = String(searchOptions.page);
+        if (searchOptions.pageSize !== 16) querySearch.pageSize = String(searchOptions.pageSize);
 
         history.push({
             pathname: '/users',
             search: queryString.stringify(querySearch)
         });
 
-        props.getUsers(currentPage, defaultPageSize, false, term);
-    }, [currentPage, defaultPageSize, term]);
+        props.getUsers(searchOptions.page,searchOptions.pageSize, false, searchOptions.term);
+    }, [searchOptions]);
 
     const onPageChange = (page: number, pageSize?: number) => {
-        page !== 0 && setCurrentPage(page);
-        pageSize && setDefaultPageSize(pageSize);
+        page !== 0 && pageSize &&
+        setSearchOptions({...searchOptions, page: page, pageSize: pageSize});
         window.scrollTo({top: 0, behavior: 'smooth'});
     };
 
-    const onSizeChange = (currentSize: number, size: number) => {
-        setDefaultPageSize(size);
+    const onSizeChange = (currentPage: number, size: number) => {
+        setSearchOptions({...searchOptions, pageSize: size});
     };
 
-    const setTermCallback = useCallback((value) => setTerm(value), [setTerm]);
-    const setCurrentPageCallback = useCallback((value) => setCurrentPage(value), [setCurrentPage]);
+    const setSearchOptionsCallback = useCallback((value) => setSearchOptions(value), [setSearchOptions]);
 
     return (
         <>
-            <Wallpaper/>
-            <SearchUsers isFetching={props.isFetching} currentPage={currentPage} term={term} setTerm={setTermCallback} setCurrentPage={setCurrentPageCallback}/>
+            <SearchUsers isFetching={props.isFetching} searchOptions={searchOptions} setSearchOptions={setSearchOptionsCallback}/>
 
             <Users users={props.users}
                    follow={props.follow}
                    unfollow={props.unfollow}
                    followingInProgress={props.followingInProgress}
                    currentAuthUserId={props.currentAuthUserId}/>
+
             <div className={styles.paginator}>
                 <Pagination size="small" total={props.totalUsersCount}
-                            current={currentPage}
+                            current={searchOptions.page}
                             onChange={onPageChange} pageSizeOptions={['16', '32', '64']}
-                            pageSize={defaultPageSize}
-                            defaultCurrent={currentPage}
+                            pageSize={searchOptions.pageSize}
+                            defaultCurrent={searchOptions.page}
                             onShowSizeChange={onSizeChange}
                             hideOnSinglePage showSizeChanger showQuickJumper/>
             </div>

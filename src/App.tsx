@@ -13,6 +13,7 @@ import {initializeApp} from "./redux/reducers/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import {withSuspense} from "./HOC/withSuspense";
 import {AppStateType} from "./redux/redux-store";
+import background from './Images/background.png'
 const Login = React.lazy(()=> import("./components/Login/Login"));
 const Dialogs = React.lazy(()=>import('./components/Dialogs/Dialogs'));
 
@@ -34,6 +35,11 @@ const App: React.FC<PropsType> = (props) => {
         if (!props.initialized) return <Preloader/>;
         return (
             <BrowserRouter>
+                {/*<div className={'background'} style={{ background: `url(${background}) no-repeat`}}/>*/}
+
+                <div className={'backgroundContainer'}>
+                    <img src={background} alt={''} className={'background'}/>
+                </div>
                 <Switch>
                 <Route exact path='/login' render={withSuspense(Login)}/>
                 <Route path='/' render={()=> <div className={'Wrapper'}>

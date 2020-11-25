@@ -3,7 +3,7 @@
     border-radius: 10px 10px 10px 10px;
     -moz-border-radius: 10px 10px 10px 10px;
     -webkit-border-radius: 10px 10px 10px 10px;
-    background-color: gainsboro;
+    background-color: white;
     padding: 30px;
     height: 850px;
 }
@@ -16,7 +16,7 @@
 }
 
 .Item a {
-    color: white;
+    color: black;
     text-decoration: none;
 }
 

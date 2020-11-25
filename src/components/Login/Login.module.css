@@ -1,5 +1,5 @@
 .container {
-    margin-top: 60px;
+    margin: 20px;
     padding: 30px;
     border: 1px solid dimgray;
     border-radius: 10px;
@@ -8,4 +8,12 @@
 
 .title {
    text-align: center;
+}
+
+.goToUsersButton {
+    text-align: center;
+}
+
+.goToUsersButton button{
+   color: white;
 }

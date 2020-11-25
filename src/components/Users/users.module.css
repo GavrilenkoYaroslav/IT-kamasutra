@@ -3,7 +3,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
-    grid-gap: 30px;
+    grid-gap: 15px;
+    background-color: white;
+    padding: 36px 5px;
+    border-radius: 10px;
 }
 
 .paginator {
