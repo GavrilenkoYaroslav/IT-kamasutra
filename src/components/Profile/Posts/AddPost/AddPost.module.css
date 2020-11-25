@@ -1,19 +1,31 @@
-.form {
+.addPostContainer {
+    position: relative;
     border-radius: 10px 10px 0 0;
     -moz-border-radius: 10px 10px 0 0;
     -webkit-border-radius: 10px 10px 0 0;
     background-color: deepskyblue;
+    height: max-content;
+    overflow: hidden;
 }
 
-.form textarea {
+.addPostBack {
+    position: absolute;
+    top: -150px;
+    width: 100%;
+    background-size: cover !important;
+}
+
+.addPostContainer textarea {
     margin: 10px;
     width: 80%;
     height: 100px;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    -webkit-border-radius: 10px 10px 0 0;
     background-color: white;
 }
 
-.form button {
+.addPostContainer button {
     margin: 10px;
     width: max-content;
     height: max-content;

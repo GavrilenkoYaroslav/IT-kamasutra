@@ -78,8 +78,9 @@ const LoginForm: React.FC<PropsType> = (props) => {
                 <Input />
             </Form.Item></>}
 
-            <Form.Item >
-                <Button type="primary" htmlType="submit">
+            <Form.Item>
+                <Button style={{width: '30%', display: 'block', margin: '0 auto'}}
+                        type="primary" htmlType="submit">
                     Log In
                 </Button>
             </Form.Item>

@@ -1,4 +1,7 @@
 .Profile {
-    height: 100%;
+    height: max-content;
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 20px;
 }
 

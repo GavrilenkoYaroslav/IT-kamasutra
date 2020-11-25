@@ -1,4 +1,5 @@
 .usersContainer {
+    position: relative;
     margin: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -7,9 +8,15 @@
     background-color: white;
     padding: 36px 5px;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .paginator {
     text-align: center;
     margin: 20px;
+}
+
+.searchBack {
+    position: absolute;
+    width: 100%;
 }

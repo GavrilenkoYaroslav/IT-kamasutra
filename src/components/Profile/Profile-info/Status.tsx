@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {ProfileAPI} from "../../../API/ProfileAPI";
+import {Card} from "antd";
 
 type PropsType = {
     status: string
@@ -29,11 +30,11 @@ const Status: React.FC<PropsType> = (props) => {
 
 
     return (
-        <>
+        <Card bodyStyle={{padding: '3px'}} hoverable>
             {editMode ?
                 <input autoFocus={ true } onBlur={ closeEditMode } onChange={ statusChange } value={ status }/> :
                 <span onDoubleClick={ enterToEditMode }> {status ? status : 'Here can be your status (double click)'} </span>}
-        </>
+        </Card>
     );
 };
 

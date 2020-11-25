@@ -10,14 +10,12 @@
     grid-template-columns: 4fr 14fr;
     margin: 10px;
     grid-gap: 10px;
+    width: 80%;
 }
 
 .status {
     width: 200px;
-    border: 1px solid #ccc;
-    padding: 5px;
-    margin: 5px 0 0 0;
-    background-color: white;
+    margin: 10px 0 0 0;
     text-align: center;
 }
 

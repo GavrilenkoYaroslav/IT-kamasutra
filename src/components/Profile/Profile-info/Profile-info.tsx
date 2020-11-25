@@ -5,7 +5,7 @@ import userLogo from '../../../Images/scalable-vector-graphics-avatar-learning-i
 import DescriptionForm, {DescriptionFormDataType} from "./DescriptionForm";
 import Description from "./Description";
 import {ProfileType} from "../../../redux/reducers/auth-reducer";
-import {Button} from "antd";
+import {Button, Card, Col, Row} from "antd";
 
 type PropsType = {
     savePhoto: (file: any) => void
@@ -36,7 +36,8 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
 
 
     return (
-        <div className={styles.user}>
+        <Row justify='center'>
+            <Col span={6}>
             <div className={styles.Avatar}>
                 <img src={props.profile.photos.large || userLogo} alt={''}/>
                 {props.isMyProfile && <input onChange={upploadPhoto}
@@ -45,14 +46,17 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
                     <Status status={props.status}/>
                 </div>
             </div>
+            </Col>
 
-            <div className={styles.description}>
+            <Col span={16}>
+            <Card hoverable>
                 {props.isMyProfile && !editMode &&
                 <Button className={styles.editButton} onClick={enterEditMode}>Edit</Button>}
                 {editMode ? <DescriptionForm onSubmit={onSubmit} initialValues={props.profile}/> :
                     <Description profile={props.profile}/>}
-            </div>
-        </div>
+            </Card>
+            </Col>
+        </Row>
     );
 };
 

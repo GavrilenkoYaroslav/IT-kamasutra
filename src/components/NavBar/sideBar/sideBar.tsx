@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styles from './sideBar.module.css';
 import Friend from './friend/friend';
 import {UserType} from "../../../redux/reducers/users-reducer";
+import {Card} from "antd";
 
 type PropsType = {
     userFriends: Array<UserType>
@@ -29,11 +30,13 @@ const SideBar: React.FC<PropsType> = (props) => {
     return (<>
             {!!shuffled.length &&
             <div className={styles.sideBar}>
+                <Card>
                 <div className={styles.title}>Friends:</div>
                 <div className={styles.friendsList}>
                     {shuffled.slice(0,5).map(friend => <Friend key={Math.random()} id={friend.id} name={friend.name}
                                                          logoSrc={friend.photos.small}/>)}
                 </div>
+                </Card>
             </div>}
         </>
     );

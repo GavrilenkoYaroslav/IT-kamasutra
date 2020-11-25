@@ -13,9 +13,7 @@ import {compose} from "redux";
 import {ProfileType} from "../../redux/reducers/auth-reducer";
 import {DescriptionFormDataType} from "./Profile-info/DescriptionForm";
 import {AppStateType} from "../../redux/redux-store";
-import Wallpaper from "../Wallpaper/Wallpaper";
 import Preloader from "../common/Preloader/Preloader";
-
 
 type MapstatePropsType = {
     profile: ProfileType | null
@@ -62,7 +60,6 @@ const ProfileContainer: React.FC<PropsType> = (props) => {
 
     return (
         <>
-            <Wallpaper/>
             <Profile profile={props.profile} status={props.status}
                      isFetching={props.isProfileFetching} isMyProfile={!props.match.params.userId}
                      savePhoto={props.savePhoto}
