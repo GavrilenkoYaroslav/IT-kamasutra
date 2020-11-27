@@ -169,10 +169,11 @@ export const getUserProfile = (userId: number): ThunkType => async dispatch => {
 
 export const getMyProfile = (): ThunkType => async dispatch => {
     try {
+        dispatch(toggleFetching(true));
         const data = await AuthAPI.AuthMe();
         if (data.resultCode === resultCodes.Success) {
             dispatch(getUserProfile(data.data.id));
-        }
+        } else dispatch(toggleFetching(false));
     } catch (e) {
         console.error(e)
     }

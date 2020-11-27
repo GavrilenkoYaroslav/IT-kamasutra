@@ -1,11 +1,12 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 import styles from './Profile-Info.module.css';
 import Status from "./Status";
 import userLogo from '../../../Images/scalable-vector-graphics-avatar-learning-icon-customer-login-avatar.jpg'
 import DescriptionForm, {DescriptionFormDataType} from "./DescriptionForm";
 import Description from "./Description";
 import {ProfileType} from "../../../redux/reducers/auth-reducer";
-import {Button, Card, Col, Row} from "antd";
+import {Button, Card, Col, Row, Upload} from "antd";
+import {UploadOutlined} from '@ant-design/icons';
 
 type PropsType = {
     savePhoto: (file: any) => void
@@ -23,11 +24,9 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
         setEditMode(true);
     };
 
-    const upploadPhoto = (e: ChangeEvent<HTMLInputElement>) => {
-        e.target.files!.length &&
-        props.savePhoto(e.target.files![0]);
-        e.target.value = '';
-
+    const uploadPhoto = (file: File) => {
+        props.savePhoto(file);
+        return false;
     };
 
     const onSubmit = (data: DescriptionFormDataType) => {
@@ -38,23 +37,29 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
     return (
         <Row justify='center'>
             <Col span={6}>
-            <div className={styles.Avatar}>
-                <img src={props.profile.photos.large || userLogo} alt={''}/>
-                {props.isMyProfile && <input onChange={upploadPhoto}
-                                             type={'file'}/>}
-                <div className={styles.status}>
-                    <Status status={props.status}/>
+                <div className={styles.Avatar}>
+                    <img src={props.profile.photos.large || userLogo} alt={''}/>
+
+                    {props.isMyProfile &&
+                    <div style={{width:'200px', textAlign: 'center'}} >
+                        <Upload showUploadList={false} beforeUpload={ uploadPhoto }>
+                            <Button icon={<UploadOutlined/>}>Click to Upload</Button>
+                        </Upload>
+                    </div>}
+
+                    <div className={styles.status}>
+                        <Status status={props.status}/>
+                    </div>
                 </div>
-            </div>
             </Col>
 
             <Col span={16}>
-            <Card hoverable>
-                {props.isMyProfile && !editMode &&
-                <Button className={styles.editButton} onClick={enterEditMode}>Edit</Button>}
-                {editMode ? <DescriptionForm onSubmit={onSubmit} initialValues={props.profile}/> :
-                    <Description profile={props.profile}/>}
-            </Card>
+                <Card hoverable>
+                    {props.isMyProfile && !editMode &&
+                    <Button className={styles.editButton} onClick={enterEditMode}>Edit</Button>}
+                    {editMode ? <DescriptionForm onSubmit={onSubmit} initialValues={props.profile}/> :
+                        <Description profile={props.profile}/>}
+                </Card>
             </Col>
         </Row>
     );

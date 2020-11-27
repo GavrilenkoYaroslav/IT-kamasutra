@@ -54,7 +54,7 @@ const UsersContainer: React.FC<PropsType> = (props) => {
 
         setSearchOptions({...searchOptions, ...parsedQuery as SearchOptionsType});
 
-    },[]);
+    },[history.location.search]);
 
     useEffect(() => {
         const querySearch: QueryType = {};

@@ -48,7 +48,7 @@ const ProfileContainer: React.FC<PropsType> = (props) => {
         }
     }, [props.match.params.userId]);
 
-    if (!props.profile) {
+    if (!props.id) {
         return (
             <>
                 {props.isProfileFetching || props.isFetching ? <Preloader/> :
@@ -60,10 +60,10 @@ const ProfileContainer: React.FC<PropsType> = (props) => {
 
     return (
         <>
-            <Profile profile={props.profile} status={props.status}
+            {props.profile && !props.isProfileFetching ? <Profile profile={props.profile} status={props.status}
                      isFetching={props.isProfileFetching} isMyProfile={!props.match.params.userId}
                      savePhoto={props.savePhoto}
-                     saveProfile={props.saveProfile}/>
+                     saveProfile={props.saveProfile}/> : <Preloader/>}
         </>
     );
 

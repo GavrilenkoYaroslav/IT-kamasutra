@@ -2,7 +2,6 @@ import React from 'react';
 import {UserType} from '../../redux/reducers/users-reducer';
 import User from "./User/User";
 import styles from './users.module.css';
-import usersSearchBack from '../../Images/usersSearchBack.svg'
 
 
 type PropsType = {
@@ -16,9 +15,9 @@ type PropsType = {
 const Users: React.FC<PropsType> = (props) => {
 
     return (
-
+        <>
+            {!!props.users.length &&
             <div className={styles.usersContainer}>
-                <img src={usersSearchBack} alt={''} className={styles.searchBack}/>
                 {props.users.map(user => (
                     <User key={user.id}
                           follow={props.follow}
@@ -26,8 +25,8 @@ const Users: React.FC<PropsType> = (props) => {
                           user={user}
                           followingInProgress={props.followingInProgress}
                           currentAuthUserId={props.currentAuthUserId}/>))}
-            </div>
-
+            </div>}
+        </>
     );
 };
 
