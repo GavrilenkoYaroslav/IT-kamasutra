@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "49a945c85ee610f43911661e8ab89b82",
+    "revision": "5146df3edaec15a3bd29e5e65070f381",
     "url": "/IT-kamasutra/index.html"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IT-kamasutra/static/css/5.03a12160.chunk.css"
   },
   {
-    "revision": "632f7760e0d5a0f77380",
-    "url": "/IT-kamasutra/static/css/main.0444e972.chunk.css"
+    "revision": "ea6367641eca0ee0065e",
+    "url": "/IT-kamasutra/static/css/main.2c0e42e9.chunk.css"
   },
   {
     "revision": "829e79d531a4c3c2895f",
@@ -44,8 +44,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IT-kamasutra/static/js/6.5eb6a58d.chunk.js"
   },
   {
-    "revision": "632f7760e0d5a0f77380",
-    "url": "/IT-kamasutra/static/js/main.80356eca.chunk.js"
+    "revision": "ea6367641eca0ee0065e",
+    "url": "/IT-kamasutra/static/js/main.cbb9a511.chunk.js"
   },
   {
     "revision": "1fc41b5b4f1d7caa70c7",
