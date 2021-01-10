@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "87b662803d8d666dfc725b3afa63bbce",
+    "revision": "9a4d4c6074f11d157f55c378d42ad7a6",
     "url": "/IT-kamasutra/index.html"
   },
   {
@@ -12,12 +12,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IT-kamasutra/static/css/3.06996ed3.chunk.css"
   },
   {
-    "revision": "62dec2afd0f46f92f0a5",
-    "url": "/IT-kamasutra/static/css/5.03a12160.chunk.css"
+    "revision": "fec234ee6c1a21d49c68",
+    "url": "/IT-kamasutra/static/css/5.74aedcb7.chunk.css"
   },
   {
-    "revision": "03a981c4bf3e49d8e5b0",
-    "url": "/IT-kamasutra/static/css/main.24e70ba2.chunk.css"
+    "revision": "62cbaad30125a8b735a5",
+    "url": "/IT-kamasutra/static/css/main.b7e45002.chunk.css"
   },
   {
     "revision": "495569eb29b5ffcff411",
@@ -36,20 +36,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IT-kamasutra/static/js/4.4d1aac01.chunk.js"
   },
   {
-    "revision": "62dec2afd0f46f92f0a5",
-    "url": "/IT-kamasutra/static/js/5.931b0965.chunk.js"
+    "revision": "fec234ee6c1a21d49c68",
+    "url": "/IT-kamasutra/static/js/5.7dabb451.chunk.js"
   },
   {
     "revision": "1291cfb8108a0978b3b6",
     "url": "/IT-kamasutra/static/js/6.395885d8.chunk.js"
   },
   {
-    "revision": "03a981c4bf3e49d8e5b0",
+    "revision": "62cbaad30125a8b735a5",
     "url": "/IT-kamasutra/static/js/main.b97b4ced.chunk.js"
   },
   {
-    "revision": "6d5d440c72473b8c5904",
-    "url": "/IT-kamasutra/static/js/runtime-main.2d8518cc.js"
+    "revision": "7e679b59799d64772907",
+    "url": "/IT-kamasutra/static/js/runtime-main.90e021fd.js"
   },
   {
     "revision": "32dab0f3b978bedfc2265bca9cb14dbb",
