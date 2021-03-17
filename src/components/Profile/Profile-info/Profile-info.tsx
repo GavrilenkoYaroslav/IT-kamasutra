@@ -14,6 +14,7 @@ type PropsType = {
     profile: ProfileType
     isMyProfile: boolean
     status: string
+    theme: 'Dark' | null
 }
 
 const ProfileInfo: React.FC<PropsType> = (props) => {
@@ -48,13 +49,13 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
                     </div>}
 
                     <div className={styles.status}>
-                        <Status status={props.status}/>
+                        <Status status={props.status} theme={props.theme}/>
                     </div>
                 </div>
             </Col>
 
             <Col span={16}>
-                <Card hoverable>
+                <Card hoverable className={props.theme ? `${styles.bordered} dark` : ''}>
                     {props.isMyProfile && !editMode &&
                     <Button className={styles.editButton} onClick={enterEditMode}>Edit</Button>}
                     {editMode ? <DescriptionForm onSubmit={onSubmit} initialValues={props.profile}/> :

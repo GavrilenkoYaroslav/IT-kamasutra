@@ -18,6 +18,7 @@ type MapStatePropsType = {
     followingInProgress: Array<number>
     isFetching: boolean
     currentAuthUserId: null | number
+    theme: 'Dark' | null
 }
 
 type MapDispatchPropsType = {
@@ -87,6 +88,7 @@ const UsersContainer: React.FC<PropsType> = (props) => {
             <SearchUsers isFetching={props.isFetching} searchOptions={searchOptions} setSearchOptions={setSearchOptionsCallback}/>
 
             <Users users={props.users}
+                   theme={props.theme}
                    follow={props.follow}
                    unfollow={props.unfollow}
                    followingInProgress={props.followingInProgress}
@@ -111,7 +113,8 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         totalUsersCount: state.usersPage.totalUsersCount,
         isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress,
-        currentAuthUserId: state.auth.id
+        currentAuthUserId: state.auth.id,
+        theme: state.app.theme,
     }
 
 };

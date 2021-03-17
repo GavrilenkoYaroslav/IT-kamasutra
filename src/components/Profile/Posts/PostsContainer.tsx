@@ -7,6 +7,7 @@ import {AppStateType} from "../../../redux/redux-store";
 type PropsType = {
     isMyProfile: boolean
     profileFullName: string
+    theme: 'Dark' | null
 }
 
 const PostsContainer: React.FC<PropsType> = (props) => {
@@ -17,7 +18,7 @@ const PostsContainer: React.FC<PropsType> = (props) => {
     const addPost = useCallback((post) => dispatch(addPostActionCreator(post)), [dispatch]);
 
     return (
-        <Posts avatar={avatar} isMyProfile={props.isMyProfile} addPost={addPost}
+        <Posts avatar={avatar} theme={props.theme} isMyProfile={props.isMyProfile} addPost={addPost}
                postData={postData} profileFullName={props.profileFullName}/>
     )
 };

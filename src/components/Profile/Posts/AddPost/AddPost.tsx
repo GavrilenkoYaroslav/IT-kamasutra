@@ -7,6 +7,7 @@ const { TextArea } = Input;
 
 type PropsType = {
     addPost: (post: string) => void
+    theme: 'Dark' | null
 }
 
 const AddPost: React.FC<PropsType> = (props) => {
@@ -27,6 +28,7 @@ const AddPost: React.FC<PropsType> = (props) => {
         <div className={styles.addPostContainer}>
             <img src={addPostBack} alt={''} className={styles.addPostBack}/>
         <TextArea
+            className={props.theme ? 'dark' : ''}
             value={newPost}
             onChange={ onPostChange }
             placeholder="Share something with your friends..."

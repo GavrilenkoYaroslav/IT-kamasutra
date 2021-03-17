@@ -1,24 +1,28 @@
 .NavBar {
-    grid-area: NavBar;
-    border-radius: 10px 10px 10px 10px;
-    -moz-border-radius: 10px 10px 10px 10px;
-    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px;
     background-color: white;
-    /*padding: 0;*/
     height: max-content;
     margin-bottom: 20px;
 }
 
+.bordered {
+    border-color: dimgrey !important;
+}
+
 .Item a.active {
-    color: indianred;
-    font-weight: bold;
+    color: indianred !important;
     transition-property: color;
     transition-duration: 3s;
 }
 
 .Item a {
     color: black;
+    font-weight: bold;
     text-decoration: none;
+}
+
+.Item a:hover {
+    color: cornflowerblue !important;
 }
 
 .Item {

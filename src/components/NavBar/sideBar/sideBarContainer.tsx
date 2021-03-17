@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import SideBar from "./sideBar";
 import {AppStateType} from "../../../redux/redux-store";
 import {UserType} from "../../../redux/reducers/users-reducer";
@@ -12,8 +12,10 @@ type MapStatePropsType = {
 
 const SideBarContainer: React.FC<PropsType> = (props) => {
 
+    const theme = useSelector((state: AppStateType) => state.app.theme);
+
     return (
-        <SideBar userFriends={props.userFriends}/>
+        <SideBar theme={theme} userFriends={props.userFriends}/>
     );
 };
 

@@ -6,6 +6,7 @@ import {Card} from "antd";
 
 type PropsType = {
     userFriends: Array<UserType>
+    theme: 'Dark' | null
 }
 
 const SideBar: React.FC<PropsType> = (props) => {
@@ -30,10 +31,10 @@ const SideBar: React.FC<PropsType> = (props) => {
     return (<>
             {!!shuffled.length &&
             <div className={styles.sideBar}>
-                <Card>
+                <Card bordered={!!props.theme} className={props.theme ? `dark ${styles.bordered}` : ''}>
                 <div className={styles.title}>Friends:</div>
                 <div className={styles.friendsList}>
-                    {shuffled.slice(0,5).map(friend => <Friend key={Math.random()} id={friend.id} name={friend.name}
+                    {shuffled.slice(0,5).map(friend => <Friend theme={props.theme} key={Math.random()} id={friend.id} name={friend.name}
                                                          logoSrc={friend.photos.small}/>)}
                 </div>
                 </Card>

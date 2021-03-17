@@ -28,7 +28,7 @@ const Description: React.FC<PropsType> = (props) => {
                 <b>CONTACTS:</b>
             </div>
             <div className={styles.contacts}>
-                {Object.keys(props.profile.contacts).map(key => <Contacts title={key}
+                {!!props.profile.contacts && Object.keys(props.profile.contacts).map(key => <Contacts title={key}
                                                                           value={props.profile.contacts[key]}
                                                                           key={key}/>)}
             </div>

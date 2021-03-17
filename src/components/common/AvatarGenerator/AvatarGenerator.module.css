@@ -1,0 +1,120 @@
+.avatarGenerator {
+    font-family: "Montserrat", sans-serif;
+}
+
+.avatarPresentation, .avatarGeneration {
+    background: #FFFFFF;
+    height: 100%;
+}
+
+.avatarPresentation h2 {
+    display: block;
+    margin: 0 auto;
+    font-weight: bold;
+}
+
+.avatarGeneration {
+    padding: 25px;
+}
+
+.avatarPresentation {
+    padding: 33px 16px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.avatarFull {
+    justify-content: center;
+    display: flex;
+    margin-top: auto;
+}
+
+.avatarControl {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatarControl button {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.avatarSelect {
+    height: 180px;
+    padding: 15px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.avatarSelect.selected {
+    background-color: #DCE1FC;
+    border: 1px solid #546AE4;
+}
+
+.avatarPlaceholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatarCreate {
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 18px;
+    color: #566CDC;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.avatarNamePlaceholder {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 49px;
+    color: #6E758B;
+    border-radius: 50%;
+    min-width: 70px;
+    background-color: #F8F8F9;
+    margin-right: 24px;
+}
+
+
+
+@media only screen and (max-width: 1200px) {
+    .avatarSelect {
+        padding: 10px;
+    }
+}
+@media only screen and (max-width: 1100px) {
+    .avatarSelect {
+        padding: 5px;
+    }
+    .presentationCol {
+        padding: 0 !important;;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .avatarSelect {
+        padding: 0;
+    }
+}
+@media only screen and (max-width: 576px) {
+    .avatarGenerator {
+        overflow-y: auto;
+    }
+    .avatarGeneration {
+        margin-top: 15px;
+    }
+    .presentationCol {
+        padding: 0 15px !important;
+    }
+}

@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://gavrilenkoyaroslav.github.io/IT-kamasutra",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -9,19 +10,24 @@
     "@types/jest": "^26.0.15",
     "@types/node": "^14.14.5",
     "@types/react": "^16.9.53",
+    "@types/react-custom-scrollbars": "^4.0.7",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.6",
     "@types/redux": "^3.6.0",
     "@types/redux-form": "^8.3.0",
     "antd": "^4.8.2",
+    "avataaars": "^1.2.1",
     "axios": "^0.20.0",
     "formik": "^2.2.2",
     "react": "^16.13.1",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.13.1",
+    "react-image-crop": "^8.6.6",
+    "react-lottie": "^1.2.3",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
+    "react-scripts": "^3.4.4",
     "redux": "^4.0.5",
     "redux-form": "^8.3.6",
     "redux-thunk": "^2.3.0",
@@ -32,7 +38,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -50,6 +58,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-lottie": "^1.2.5",
     "gh-pages": "^3.1.0"
   }
 }

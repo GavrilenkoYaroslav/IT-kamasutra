@@ -1,9 +1,11 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {ProfileAPI} from "../../../API/ProfileAPI";
 import {Card} from "antd";
+import styles from './Profile-Info.module.css'
 
 type PropsType = {
     status: string
+    theme: 'Dark' | null
 }
 
 const Status: React.FC<PropsType> = (props) => {
@@ -30,9 +32,9 @@ const Status: React.FC<PropsType> = (props) => {
 
 
     return (
-        <Card bodyStyle={{padding: '3px'}} hoverable>
+        <Card bodyStyle={{padding: '3px'}} className={props.theme ? `dark ${styles.bordered}` : ''} hoverable>
             {editMode ?
-                <input autoFocus={ true } onBlur={ closeEditMode } onChange={ statusChange } value={ status }/> :
+                <input className={props.theme ? 'dark' : ''} autoFocus={ true } onBlur={ closeEditMode } onChange={ statusChange } value={ status }/> :
                 <span onDoubleClick={ enterToEditMode }> {status ? status : 'Here can be your status (double click)'} </span>}
         </Card>
     );

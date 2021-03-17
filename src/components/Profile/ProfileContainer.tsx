@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import Profile from "./Profile";
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {
     clearProfile,
     getMyProfile,
@@ -14,6 +14,10 @@ import {ProfileType} from "../../redux/reducers/auth-reducer";
 import {DescriptionFormDataType} from "./Profile-info/DescriptionForm";
 import {AppStateType} from "../../redux/redux-store";
 import Preloader from "../common/Preloader/Preloader";
+import Lottie from 'react-lottie';
+import userAvatar from '../../lotties/userAvatar.json'
+import {Col, Row} from "antd";
+import styles from './Profile.module.css'
 
 type MapstatePropsType = {
     profile: ProfileType | null
@@ -38,6 +42,13 @@ type PropsType = MapstatePropsType & MapDispatchPropsType & RouteComponentProps<
 
 const ProfileContainer: React.FC<PropsType> = (props) => {
 
+    const theme = useSelector((state: AppStateType) => state.app.theme);
+
+    const lottieOptions = {
+        autoplay: true,
+        animationData: userAvatar
+    };
+
     useEffect(() => {
         if (!props.match.params.userId) {
             !props.id && props.clearProfile();
@@ -48,11 +59,18 @@ const ProfileContainer: React.FC<PropsType> = (props) => {
         }
     }, [props.match.params.userId]);
 
-    if (!props.id) {
+    if (!props.id && !props.match.params.userId) {
         return (
             <>
                 {props.isProfileFetching || props.isFetching ? <Preloader/> :
-                    < div style={{margin: '10px', backgroundColor: 'white', width: 'max-content'}}>Please <NavLink to='/login'><b>Log In</b></NavLink></div>
+                    <Row justify='center' align={'middle'} style={{height: '100%'}}>
+                        <Col span={16}>
+                            <div className={`${styles.container} ${theme ? 'dark' : ''}`}>
+                                <h1>Please <NavLink to='/login'><b>Log In</b></NavLink></h1>
+                                    <Lottie options={lottieOptions} width={300} height={300}/>
+                            </div>
+                        </Col>
+                    </Row>
                 }
             </>
         );
@@ -62,7 +80,7 @@ const ProfileContainer: React.FC<PropsType> = (props) => {
         <>
             {props.profile && !props.isProfileFetching ? <Profile profile={props.profile} status={props.status}
                      isFetching={props.isProfileFetching} isMyProfile={!props.match.params.userId}
-                     savePhoto={props.savePhoto}
+                     savePhoto={props.savePhoto} theme={theme}
                      saveProfile={props.saveProfile}/> : <Preloader/>}
         </>
     );

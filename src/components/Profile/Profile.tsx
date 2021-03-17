@@ -13,19 +13,21 @@ type PropsType = {
     savePhoto: (file: any) => void
     saveProfile: (profile: DescriptionFormDataType) => void
     isFetching: boolean
+    theme: 'Dark' | null
 }
 
 const Profile: React.FC<PropsType> = (props) => {
     return (
-        <div className={styles.Profile}>
+        <div className={`${styles.Profile} ${props.theme ? 'dark' : ''}`}>
             {props.isFetching ? <Preloader/> :
                 <>
                 <ProfileInfo profile={props.profile}
                              status={props.status}
                              isMyProfile={props.isMyProfile}
+                             theme={props.theme}
                              savePhoto={props.savePhoto}
                              saveProfile={props.saveProfile}/>
-            <PostsContainer isMyProfile={props.isMyProfile} profileFullName={props.profile.fullName}/>
+            <PostsContainer theme={props.theme} isMyProfile={props.isMyProfile} profileFullName={props.profile.fullName}/>
           </>}
         </div>
     );

@@ -3,6 +3,10 @@
     text-align: center;
 }
 
+.bordered {
+    border-color: dimgray !important;
+}
+
 .title {
     font-weight: bold;
 }

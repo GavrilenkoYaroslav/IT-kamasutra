@@ -5,6 +5,10 @@
     margin: 5px auto;
 }
 
+.bordered {
+    border-color: dimgrey !important;
+}
+
 .user {
     display: grid;
     grid-template-columns: 4fr 14fr;

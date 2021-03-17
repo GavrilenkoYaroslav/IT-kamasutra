@@ -8,6 +8,7 @@ type PropsType = {
     logoSrc: string | null
     name: string
     id: number
+    theme: 'Dark' | null
 }
 
 const Friend: React.FC<PropsType> = (props) => {
@@ -16,7 +17,7 @@ const Friend: React.FC<PropsType> = (props) => {
             <NavLink to={`/profile/${props.id}`}>
             <img src={props.logoSrc || userLogo} alt={''}/>
             </NavLink>
-            <div className={styles.friendName}>{props.name}</div>
+            <div className={`${styles.friendName} ${props.theme ? 'dark' : ''}`}>{props.name}</div>
         </div>
     );
 };
